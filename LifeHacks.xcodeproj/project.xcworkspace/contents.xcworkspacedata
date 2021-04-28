@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../LifeHacks/Base.lproj/LaunchScreen.storyboard">
+   </FileRef>
+   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

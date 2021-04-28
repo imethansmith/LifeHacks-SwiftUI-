@@ -12,9 +12,9 @@
 		3E39CD4B2639213B009EE552 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD4A2639213B009EE552 /* ContentView.swift */; };
 		3E39CD4D2639213D009EE552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E39CD4C2639213D009EE552 /* Assets.xcassets */; };
 		3E39CD502639213D009EE552 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E39CD4F2639213D009EE552 /* Preview Assets.xcassets */; };
-		3E39CD532639213D009EE552 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E39CD512639213D009EE552 /* LaunchScreen.storyboard */; };
-		3E39CD5E2639213D009EE552 /* LifeHacksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD5D2639213D009EE552 /* LifeHacksTests.swift */; };
+		3E39CD5E2639213D009EE552 /* QuestionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD5D2639213D009EE552 /* QuestionTests.swift */; };
 		3E39CD692639213D009EE552 /* LifeHacksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD682639213D009EE552 /* LifeHacksUITests.swift */; };
+		3E39CD77263921D0009EE552 /* User Question Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD76263921D0009EE552 /* User Question Model.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,14 +41,14 @@
 		3E39CD4A2639213B009EE552 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E39CD4C2639213D009EE552 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E39CD4F2639213D009EE552 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3E39CD522639213D009EE552 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3E39CD542639213D009EE552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E39CD592639213D009EE552 /* LifeHacksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeHacksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E39CD5D2639213D009EE552 /* LifeHacksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeHacksTests.swift; sourceTree = "<group>"; };
+		3E39CD5D2639213D009EE552 /* QuestionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTests.swift; sourceTree = "<group>"; };
 		3E39CD5F2639213D009EE552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E39CD642639213D009EE552 /* LifeHacksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeHacksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E39CD682639213D009EE552 /* LifeHacksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeHacksUITests.swift; sourceTree = "<group>"; };
 		3E39CD6A2639213D009EE552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E39CD76263921D0009EE552 /* User Question Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User Question Model.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +103,9 @@
 				3E39CD482639213B009EE552 /* SceneDelegate.swift */,
 				3E39CD4A2639213B009EE552 /* ContentView.swift */,
 				3E39CD4C2639213D009EE552 /* Assets.xcassets */,
-				3E39CD512639213D009EE552 /* LaunchScreen.storyboard */,
 				3E39CD542639213D009EE552 /* Info.plist */,
 				3E39CD4E2639213D009EE552 /* Preview Content */,
+				3E39CD76263921D0009EE552 /* User Question Model.swift */,
 			);
 			path = LifeHacks;
 			sourceTree = "<group>";
@@ -121,7 +121,7 @@
 		3E39CD5C2639213D009EE552 /* LifeHacksTests */ = {
 			isa = PBXGroup;
 			children = (
-				3E39CD5D2639213D009EE552 /* LifeHacksTests.swift */,
+				3E39CD5D2639213D009EE552 /* QuestionTests.swift */,
 				3E39CD5F2639213D009EE552 /* Info.plist */,
 			);
 			path = LifeHacksTests;
@@ -239,7 +239,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E39CD532639213D009EE552 /* LaunchScreen.storyboard in Resources */,
 				3E39CD502639213D009EE552 /* Preview Assets.xcassets in Resources */,
 				3E39CD4D2639213D009EE552 /* Assets.xcassets in Resources */,
 			);
@@ -266,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E39CD77263921D0009EE552 /* User Question Model.swift in Sources */,
 				3E39CD472639213B009EE552 /* AppDelegate.swift in Sources */,
 				3E39CD492639213B009EE552 /* SceneDelegate.swift in Sources */,
 				3E39CD4B2639213B009EE552 /* ContentView.swift in Sources */,
@@ -276,7 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E39CD5E2639213D009EE552 /* LifeHacksTests.swift in Sources */,
+				3E39CD5E2639213D009EE552 /* QuestionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,17 +302,6 @@
 			targetProxy = 3E39CD652639213D009EE552 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		3E39CD512639213D009EE552 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3E39CD522639213D009EE552 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3E39CD6B2639213D009EE552 /* Debug */ = {

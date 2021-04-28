@@ -8,8 +8,16 @@
 import XCTest
 @testable import LifeHacks
 
-class LifeHacksTests: XCTestCase {
+class QuestionTests: XCTestCase {
 
+    func testUpvote() {
+        let user = User(name: "", aboutMe: "", reputation: 0, avatar: UIImage())
+        var question = Question(viewCount: 0, title: "", body: "", creationDate: Date(), tags: [], owner: user, score: 0)
+        
+        question.upvote()
+        
+        XCTAssertEqual(question.score, 1)
+    }
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
