@@ -9,33 +9,53 @@ import XCTest
 @testable import LifeHacks
 
 class QuestionTests: XCTestCase {
-
     func testUpvote() {
-        let user = User(name: "", aboutMe: "", reputation: 0, avatar: UIImage())
-        var question = Question(viewCount: 0, title: "", body: "", creationDate: Date(), tags: [], owner: user, score: 0)
+        var question = makeQuestion()
         
         question.upvote()
         
         XCTAssertEqual(question.score, 1)
     }
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    func testDownvote() {
+        var question = makeQuestion()
+        
+        question.downvote()
+        
+        XCTAssertEqual(question.score, -1)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testUnvote() {
+        var question = makeQuestion()
+        
+        question.upvote()
+        question.unvote()
+        
+        XCTAssertEqual(question.score, 0)
     }
+    
+    func testVotingOnce() {
+        var question = makeQuestion()
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        question.upvote()
+        question.upvote()
+        
+        XCTAssertEqual(question.score, 1)
     }
+    
+    func testReversingVote() {
+        var question = makeQuestion()
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        question.upvote()
+        question.downvote()
+        
+        XCTAssertEqual(question.score, -1)
     }
+}
 
+private extension QuestionTests {
+    func makeQuestion() -> Question {
+        let user = User(name: "", aboutMe: "", reputation: 0, avatar: UIImage())
+        return Question(viewCount: 0, title: "", body: "", creationDate: Date(), tags: [], owner: user, score: 0)
+    }
 }
