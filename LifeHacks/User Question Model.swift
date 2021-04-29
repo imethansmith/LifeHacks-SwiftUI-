@@ -22,18 +22,14 @@ struct Question {
     let creationDate: Date
     let tags: [String]
     let owner: User
-    
     private(set) var score: Int
     private(set) var vote = Vote.none
-    
     mutating func upvote() {
         cast(vote: .up)
     }
-    
     mutating func downvote() {
         cast(vote: .down)
     }
-    
     mutating func unvote() {
         score -= vote.rawValue
         vote = .none
