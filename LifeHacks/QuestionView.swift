@@ -9,25 +9,23 @@ import SwiftUI
 
 struct QuestionView: View {
     let title: String
+    let questionBody: String
+    let score: Int
     let viewCount: Int
     let date: Date
     let tags: [String]
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8.0) {
-            Text(title)
-                .font(.headline)
-            Text(tagsString)
-                .font(.footnote)
-                .fontWeight(.semibold)
-                .foregroundColor(.blue)
-            Group {
-                Text("Asked on \(date.formatted)")
-                Text("Viewed \(viewCount.formatted) times")
+        VStack(alignment: .leading, spacing: 24.0) {
+            HStack(alignment: .top, spacing: 16.0) {
+                Voting(score: score)
+                Info(title: title, viewCount: viewCount, date: date, tags: tags)
             }
-            .font(.caption)
-            .foregroundColor(.secondary)
+            Text(questionBody)
+                .font(.subheadline)
+            Spacer()
         }
+        .padding()
     }
 }
 
@@ -35,17 +33,93 @@ struct QuestionView_Previews: PreviewProvider {
     static let question = TestData.question
     
     static var previews: some View {
-        QuestionView(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
+        Group {
+            QuestionView(title: question.title, questionBody: question.body, score: question.score, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
+
+            Group {
+                QuestionView.Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
+                    .previewDisplayName("Info")
+                QuestionView.Voting(score: question.score)
+                    .previewDisplayName("Voting")
+                HStack(spacing: 16) {
+                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: true)
+                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: false)
+                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: true)
+                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false)
+                }
+                .previewDisplayName("Vote button configurations")
+            }
+            .previewLayout(.sizeThatFits)
+        }
     }
 }
 
-private extension QuestionView {
-    var tagsString: String {
-        var result = tags.first ?? ""
-        for tag in tags.dropFirst() {
-            result.append(", " + tag)
+extension QuestionView {
+    struct Info: View {
+        let title: String
+        let viewCount: Int
+        let date: Date
+        let tags: [String]
+        
+        var body: some View {
+            VStack(alignment: .leading, spacing: 8.0) {
+                Text(title)
+                    .font(.headline)
+                TagsView(tags: tags)
+                Group {
+                    Text("Asked on \(date.formatted)")
+                    Text("Viewed \(viewCount.formatted) times")
+                }
+                .font(.caption)
+                .foregroundColor(.secondary)
+            }
         }
-        return result
+    }
+}
+
+//MARK: - Voting
+
+extension QuestionView {
+    struct Voting: View {
+        let score: Int
+        
+        var body: some View {
+            VStack(spacing: 8.0) {
+                VoteButton(buttonType: .up, highlighted: false)
+                Text("\(score)")
+                    .font(.title)
+                    .foregroundColor(.secondary)
+                VoteButton(buttonType: .down, highlighted: false)
+            }
+        }
+    }
+}
+
+extension QuestionView.Voting {
+    struct VoteButton: View {
+        let buttonType: ButtonType
+        let highlighted: Bool
+        
+        var body: some View {
+            Button(action: {}) {
+                buttonType.image(highlighted: highlighted)
+                    .resizable()
+                    .frame(width:32, height: 32)
+                    .foregroundColor(.orange)
+            }
+        }
+    }
+}
+
+extension QuestionView.Voting.VoteButton {
+    enum ButtonType: String {
+        case up = "arrowtriangle.up"
+        case down = "arrowtriangle.down"
+        
+        func image(highlighted: Bool) -> Image {
+            let imageName = rawValue + (highlighted ? ".fill" : "")
+            return Image(systemName: imageName)
+        }
     }
 }
 
