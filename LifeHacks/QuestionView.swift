@@ -48,11 +48,15 @@ struct QuestionView_Previews: PreviewProvider {
                     QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false)
                 }
                 .previewDisplayName("Vote button configurations")
+                QuestionView.Owner()
+                    .padding()
             }
             .previewLayout(.sizeThatFits)
         }
     }
 }
+
+//MARK: - Info View
 
 extension QuestionView {
     struct Info: View {
@@ -73,6 +77,33 @@ extension QuestionView {
                 .font(.caption)
                 .foregroundColor(.secondary)
             }
+        }
+    }
+}
+
+//MARK: - Owner
+
+extension QuestionView {
+    struct Owner: View {
+        let name: String = TestData.user.name
+        let reputation: Int = TestData.user.reputation
+        let avatar: UIImage = TestData.user.avatar
+        
+        var body: some View {
+            HStack {
+                RoundImage(image: avatar)
+                    .frame(width: 48, height: 48)
+                VStack(alignment: .leading, spacing: 4.0) {
+                    Text(name)
+                        .font(.headline)
+                    Text("\(reputation.formatted) reputation")
+                        .font(.caption)
+                }
+            }
+            .padding(16)
+            .background(LinearGradient.blue)
+            .cornerRadius(6.0)
+            .foregroundColor(.white)
         }
     }
 }
@@ -130,7 +161,7 @@ struct TestData {
         name: "Betty Vasquez",
         aboutMe: "Affronting imprudence do he he everything. Sex lasted dinner wanted indeed wished out law. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness.",
         reputation: 1234,
-        avatar: UIImage()
+        avatar: #imageLiteral(resourceName: "Avatar")
     )
     
     static let question = Question(
