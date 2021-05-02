@@ -8,21 +8,20 @@
 import SwiftUI
 
 struct QuestionView: View {
-    let title: String
-    let questionBody: String
-    let score: Int
-    let viewCount: Int
-    let date: Date
-    let tags: [String]
+    let question: Question
     
     var body: some View {
         VStack(alignment: .leading, spacing: 24.0) {
             HStack(alignment: .top, spacing: 16.0) {
-                Voting(score: score)
-                Info(title: title, viewCount: viewCount, date: date, tags: tags)
+                Voting(score: question.score)
+                Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
             }
-            Text(questionBody)
+            Text(question.body)
                 .font(.subheadline)
+            HStack {
+                Spacer()
+                Owner(name: question.owner.name, reputation: question.owner.reputation, avatar: question.owner.avatar)
+            }
             Spacer()
         }
         .padding()
@@ -31,10 +30,11 @@ struct QuestionView: View {
 
 struct QuestionView_Previews: PreviewProvider {
     static let question = TestData.question
+    static let user = TestData.user
     
     static var previews: some View {
         Group {
-            QuestionView(title: question.title, questionBody: question.body, score: question.score, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
+            QuestionView(question: question)
 
             Group {
                 QuestionView.Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
@@ -48,8 +48,9 @@ struct QuestionView_Previews: PreviewProvider {
                     QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false)
                 }
                 .previewDisplayName("Vote button configurations")
-                QuestionView.Owner()
+                QuestionView.Owner(name: user.name, reputation: user.reputation, avatar: user.avatar)
                     .padding()
+                    .previewDisplayName("Owner")
             }
             .previewLayout(.sizeThatFits)
         }
@@ -85,9 +86,9 @@ extension QuestionView {
 
 extension QuestionView {
     struct Owner: View {
-        let name: String = TestData.user.name
-        let reputation: Int = TestData.user.reputation
-        let avatar: UIImage = TestData.user.avatar
+        let name: String
+        let reputation: Int
+        let avatar: UIImage
         
         var body: some View {
             HStack {
@@ -101,10 +102,16 @@ extension QuestionView {
                 }
             }
             .padding(16)
-            .background(LinearGradient.blue)
-            .cornerRadius(6.0)
-            .foregroundColor(.white)
+            .blueStyle()
         }
+    }
+}
+
+extension QuestionView.Owner {
+    init(user: User) {
+        name = user.name
+        reputation = user.reputation
+        avatar = user.avatar
     }
 }
 
