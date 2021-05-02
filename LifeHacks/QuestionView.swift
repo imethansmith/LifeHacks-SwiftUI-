@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+//MARK: - QuestionView
+
 struct QuestionView: View {
     let question: Question
     
@@ -28,36 +30,7 @@ struct QuestionView: View {
     }
 }
 
-struct QuestionView_Previews: PreviewProvider {
-    static let question = TestData.question
-    static let user = TestData.user
-    
-    static var previews: some View {
-        Group {
-            QuestionView(question: question)
-
-            Group {
-                QuestionView.Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
-                    .previewDisplayName("Info")
-                QuestionView.Voting(score: question.score)
-                    .previewDisplayName("Voting")
-                HStack(spacing: 16) {
-                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: true)
-                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: false)
-                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: true)
-                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false)
-                }
-                .previewDisplayName("Vote button configurations")
-                QuestionView.Owner(name: user.name, reputation: user.reputation, avatar: user.avatar)
-                    .padding()
-                    .previewDisplayName("Owner")
-            }
-            .previewLayout(.sizeThatFits)
-        }
-    }
-}
-
-//MARK: - Info View
+//MARK: - Info
 
 extension QuestionView {
     struct Info: View {
@@ -79,39 +52,6 @@ extension QuestionView {
                 .foregroundColor(.secondary)
             }
         }
-    }
-}
-
-//MARK: - Owner
-
-extension QuestionView {
-    struct Owner: View {
-        let name: String
-        let reputation: Int
-        let avatar: UIImage
-        
-        var body: some View {
-            HStack {
-                RoundImage(image: avatar)
-                    .frame(width: 48, height: 48)
-                VStack(alignment: .leading, spacing: 4.0) {
-                    Text(name)
-                        .font(.headline)
-                    Text("\(reputation.formatted) reputation")
-                        .font(.caption)
-                }
-            }
-            .padding(16)
-            .blueStyle()
-        }
-    }
-}
-
-extension QuestionView.Owner {
-    init(user: User) {
-        name = user.name
-        reputation = user.reputation
-        avatar = user.avatar
     }
 }
 
@@ -161,6 +101,39 @@ extension QuestionView.Voting.VoteButton {
     }
 }
 
+//MARK: - Owner
+
+extension QuestionView {
+    struct Owner: View {
+        let name: String
+        let reputation: Int
+        let avatar: UIImage
+        
+        var body: some View {
+            HStack {
+                RoundImage(image: avatar)
+                    .frame(width: 48, height: 48)
+                VStack(alignment: .leading, spacing: 4.0) {
+                    Text(name)
+                        .font(.headline)
+                    Text("\(reputation.formatted) reputation")
+                        .font(.caption)
+                }
+            }
+            .padding(16)
+            .blueStyle()
+        }
+    }
+}
+
+extension QuestionView.Owner {
+    init(user: User) {
+        name = user.name
+        reputation = user.reputation
+        avatar = user.avatar
+    }
+}
+
 //MARK: - TestData
 
 struct TestData {
@@ -180,4 +153,44 @@ struct TestData {
         owner: user,
         score: 359
     )
+}
+
+//MARK: - Previews
+
+struct QuestionView_Previews: PreviewProvider {
+    static let question = TestData.question
+    static let user = TestData.user
+    
+    static var previews: some View {
+        Group {
+            QuestionView(question: question)
+            QuestionView(question: question)
+                .background(Color(.systemBackground))
+                .environment(\.colorScheme, .dark)
+                .previewDisplayName("Dark mode")
+            QuestionView(question: question)
+                .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
+                .previewDisplayName("Accessibility XXXL")
+            QuestionView(question: question)
+                .previewDevice(/*@START_MENU_TOKEN@*/"iPhone SE (2nd generation)"/*@END_MENU_TOKEN@*/)
+                .previewDisplayName("iPhone SE")
+            Group {
+                QuestionView.Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
+                    .previewDisplayName("Info")
+                QuestionView.Voting(score: question.score)
+                    .previewDisplayName("Voting")
+                HStack(spacing: 16) {
+                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: true)
+                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: false)
+                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: true)
+                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false)
+                }
+                .previewDisplayName("Vote button configurations")
+                QuestionView.Owner(name: user.name, reputation: user.reputation, avatar: user.avatar)
+                    .padding()
+                    .previewDisplayName("Owner")
+            }
+            .previewLayout(.sizeThatFits)
+        }
+    }
 }

@@ -15,7 +15,7 @@
 		3E39CD502639213D009EE552 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E39CD4F2639213D009EE552 /* Preview Assets.xcassets */; };
 		3E39CD5E2639213D009EE552 /* QuestionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD5D2639213D009EE552 /* QuestionTests.swift */; };
 		3E39CD692639213D009EE552 /* LifeHacksUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD682639213D009EE552 /* LifeHacksUITests.swift */; };
-		3E39CD77263921D0009EE552 /* User Question Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD76263921D0009EE552 /* User Question Model.swift */; };
+		3E39CD77263921D0009EE552 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD76263921D0009EE552 /* Model.swift */; };
 		3E5D0E39263AA0F9001F945D /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5D0E38263AA0F9001F945D /* QuestionView.swift */; };
 		3E5D0E3B263AAC9A001F945D /* Type Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5D0E3A263AAC9A001F945D /* Type Extensions.swift */; };
 		3ED94A07263C0069000E564C /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED94A06263C0069000E564C /* TagsView.swift */; };
@@ -54,7 +54,7 @@
 		3E39CD642639213D009EE552 /* LifeHacksUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeHacksUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E39CD682639213D009EE552 /* LifeHacksUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeHacksUITests.swift; sourceTree = "<group>"; };
 		3E39CD6A2639213D009EE552 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3E39CD76263921D0009EE552 /* User Question Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User Question Model.swift"; sourceTree = "<group>"; };
+		3E39CD76263921D0009EE552 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		3E5D0E38263AA0F9001F945D /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		3E5D0E3A263AAC9A001F945D /* Type Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Type Extensions.swift"; sourceTree = "<group>"; };
 		3ED94A06263C0069000E564C /* TagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
@@ -111,16 +111,16 @@
 			children = (
 				3E39CD462639213B009EE552 /* AppDelegate.swift */,
 				3E39CD482639213B009EE552 /* SceneDelegate.swift */,
+				3E39CD76263921D0009EE552 /* Model.swift */,
 				3E39CD4A2639213B009EE552 /* ContentView.swift */,
-				3ED94A06263C0069000E564C /* TagsView.swift */,
 				3E5D0E38263AA0F9001F945D /* QuestionView.swift */,
+				3ED94A06263C0069000E564C /* TagsView.swift */,
+				3E398DEB263D61480067DF74 /* Styles.swift */,
 				3ED94A08263D5B3B000E564C /* RoundImage.swift */,
 				3E5D0E3A263AAC9A001F945D /* Type Extensions.swift */,
-				3E398DEB263D61480067DF74 /* Styles.swift */,
 				3E39CD4C2639213D009EE552 /* Assets.xcassets */,
 				3E39CD542639213D009EE552 /* Info.plist */,
 				3E39CD4E2639213D009EE552 /* Preview Content */,
-				3E39CD76263921D0009EE552 /* User Question Model.swift */,
 			);
 			path = LifeHacks;
 			sourceTree = "<group>";
@@ -282,7 +282,7 @@
 			files = (
 				3E398DEC263D61480067DF74 /* Styles.swift in Sources */,
 				3E5D0E39263AA0F9001F945D /* QuestionView.swift in Sources */,
-				3E39CD77263921D0009EE552 /* User Question Model.swift in Sources */,
+				3E39CD77263921D0009EE552 /* Model.swift in Sources */,
 				3ED94A07263C0069000E564C /* TagsView.swift in Sources */,
 				3E5D0E3B263AAC9A001F945D /* Type Extensions.swift in Sources */,
 				3E39CD472639213B009EE552 /* AppDelegate.swift in Sources */,

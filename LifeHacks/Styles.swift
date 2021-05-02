@@ -13,7 +13,7 @@ extension LinearGradient {
     static var orange: Self { verticalGradient(with: [.lightOrange, .orange]) }
     static var green: Self { verticalGradient(with: [.lightGreen, .green]) }
     static var teal: Self { verticalGradient(with: [.lightTeal, .teal]) }
- 
+    
     private static func verticalGradient(with colors: [Color]) -> Self {
         let gradient = Gradient(colors: colors)
         return LinearGradient(gradient: gradient, startPoint: UnitPoint(x: 0.0, y: 0.0), endPoint: UnitPoint(x: 0.0, y: 1.0))
@@ -48,29 +48,43 @@ struct Style: ViewModifier {
 }
 
 struct Styles_Previews: PreviewProvider {
-    static var previews: some View {
+    static var stack: some View {
         VStack(spacing: 16) {
             Text("Blue style")
                 .padding()
                 .blueStyle()
             Text("Orange style")
-                        .padding()
-                        .orangeStyle()
-                    Text("Orange empty style")
-                        .padding()
-                        .orangeStyle(filled: false)
-                    Text("Teal style")
-                        .padding()
-                        .tealStyle()
-                    Text("Green style")
-                        .padding()
-                        .greenStyle()
-                    Text("Green empty style")
-                        .padding()
-                        .greenStyle(filled: false)
+                .padding()
+                .orangeStyle()
+            Text("Orange empty style")
+                .padding()
+                .orangeStyle(filled: false)
+            Text("Teal style")
+                .padding()
+                .tealStyle()
+            Text("Green style")
+                .padding()
+                .greenStyle()
+            Text("Green empty style")
+                .padding()
+                .greenStyle(filled: false)
         }
         .previewLayout(.sizeThatFits)
     }
+    
+    static var previews: some View {
+        Group {
+            stack
+                .padding()
+                .previewDisplayName("Light mode")
+            stack
+                .padding()
+                .background(Color(UIColor.systemBackground))
+                .environment(\.colorScheme, .dark)
+                .previewDisplayName("Dark mode")
+        }
+    }
+    
 }
 
 extension View {
