@@ -10,12 +10,12 @@ import SwiftUI
 //MARK: - QuestionView
 
 struct QuestionView: View {
-    let question: Question
+    @State var question: Question
     
     var body: some View {
         VStack(alignment: .leading, spacing: 24.0) {
             HStack(alignment: .top, spacing: 16.0) {
-                Voting(score: question.score)
+                Voting(score: question.score, upvote: { question.upvote() }, downvote: { question.downvote() } )
                 Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
             }
             Text(question.body)
@@ -60,14 +60,16 @@ extension QuestionView {
 extension QuestionView {
     struct Voting: View {
         let score: Int
+        let upvote: () -> Void
+        let downvote: () -> Void
         
         var body: some View {
             VStack(spacing: 8.0) {
-                VoteButton(buttonType: .up, highlighted: false)
+                VoteButton(buttonType: .up, highlighted: false, action: upvote)
                 Text("\(score)")
                     .font(.title)
                     .foregroundColor(.secondary)
-                VoteButton(buttonType: .down, highlighted: false)
+                VoteButton(buttonType: .down, highlighted: false, action: downvote)
             }
         }
     }
@@ -77,9 +79,10 @@ extension QuestionView.Voting {
     struct VoteButton: View {
         let buttonType: ButtonType
         let highlighted: Bool
+        let action: () -> Void
         
         var body: some View {
-            Button(action: {}) {
+            Button(action: action) {
                 buttonType.image(highlighted: highlighted)
                     .resizable()
                     .frame(width:32, height: 32)
@@ -177,13 +180,13 @@ struct QuestionView_Previews: PreviewProvider {
             Group {
                 QuestionView.Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
                     .previewDisplayName("Info")
-                QuestionView.Voting(score: question.score)
+                QuestionView.Voting(score: question.score, upvote: {}, downvote: {})
                     .previewDisplayName("Voting")
                 HStack(spacing: 16) {
-                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: true)
-                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: false)
-                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: true)
-                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false)
+                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: true, action: {})
+                    QuestionView.Voting.VoteButton(buttonType: .up, highlighted: false, action: {})
+                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: true, action: {})
+                    QuestionView.Voting.VoteButton(buttonType: .down, highlighted: false, action: {})
                 }
                 .previewDisplayName("Vote button configurations")
                 QuestionView.Owner(name: user.name, reputation: user.reputation, avatar: user.avatar)
