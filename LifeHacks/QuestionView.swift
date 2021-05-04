@@ -15,7 +15,7 @@ struct QuestionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 24.0) {
             HStack(alignment: .top, spacing: 16.0) {
-                Voting(score: question.score, upvote: { question.upvote() }, downvote: { question.downvote() } )
+                Voting(score: question.score, vote: .init(vote: question.vote), upvote: { question.upvote() }, downvote: { question.downvote() }, unvote: { question.unvote() } )
                 Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
             }
             Text(question.body)
@@ -60,20 +60,51 @@ extension QuestionView {
 extension QuestionView {
     struct Voting: View {
         let score: Int
+        let vote: Vote
         let upvote: () -> Void
         let downvote: () -> Void
+        let unvote: () -> Void
         
         var body: some View {
             VStack(spacing: 8.0) {
-                VoteButton(buttonType: .up, highlighted: false, action: upvote)
+                VoteButton(buttonType: .up, highlighted: vote == .up, action: { vote(.up) })
                 Text("\(score)")
                     .font(.title)
                     .foregroundColor(.secondary)
-                VoteButton(buttonType: .down, highlighted: false, action: downvote)
+                VoteButton(buttonType: .down, highlighted: vote == .down, action: { vote(.down) })
+            }
+            .frame(minWidth: 56.0)
+        }
+        
+        func vote(_ vote: Vote) {
+            switch (self.vote, vote) {
+            case (.none, .up), (.down, .up): upvote()
+            case (.none, .down), (.up, .down): downvote()
+            default: unvote()
             }
         }
     }
 }
+
+extension QuestionView.Voting {
+    enum Vote {
+        case none
+        case up
+        case down
+    }
+}
+
+extension QuestionView.Voting.Vote {
+    init(vote: Question.Vote) {
+        switch vote {
+        case .none: self = .none
+        case .up: self = .up
+        case .down: self = .down
+        }
+    }
+}
+
+//MARK: - VoteButton
 
 extension QuestionView.Voting {
     struct VoteButton: View {
@@ -180,8 +211,12 @@ struct QuestionView_Previews: PreviewProvider {
             Group {
                 QuestionView.Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
                     .previewDisplayName("Info")
-                QuestionView.Voting(score: question.score, upvote: {}, downvote: {})
-                    .previewDisplayName("Voting")
+                HStack {
+                    QuestionView.Voting(score: question.score, vote: .none, upvote: {}, downvote: {}, unvote: {})
+                    QuestionView.Voting(score: question.score, vote: .up, upvote: {}, downvote: {}, unvote: {})
+                    QuestionView.Voting(score: question.score, vote: .down, upvote: {}, downvote: {}, unvote: {})
+                }
+                .previewDisplayName("Voting")
                 HStack(spacing: 16) {
                     QuestionView.Voting.VoteButton(buttonType: .up, highlighted: true, action: {})
                     QuestionView.Voting.VoteButton(buttonType: .up, highlighted: false, action: {})
