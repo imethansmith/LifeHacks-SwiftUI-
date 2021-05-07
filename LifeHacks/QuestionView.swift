@@ -171,22 +171,31 @@ extension QuestionView.Owner {
 //MARK: - TestData
 
 struct TestData {
+    static let shortText = "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear."
+    static let longText = "Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. "
     static let user = User(
         name: "Betty Vasquez",
-        aboutMe: "Affronting imprudence do he he everything. Sex lasted dinner wanted indeed wished out law. Far advanced settling say finished raillery. Offered chiefly farther of my no colonel shyness.",
+        aboutMe: longText,
         reputation: 1234,
         avatar: #imageLiteral(resourceName: "Avatar")
     )
+    static var question = makeQuestion(id: 0)
+    static let questions = [makeQuestion(id: 1), makeQuestion(id: 2), makeQuestion(id: 3)]
     
-    static let question = Question(
-        viewCount: 2770,
-        title: "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear.",
-        body: "Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. ",
-        creationDate: Date(),
-        tags: ["monkey", "rope", "found", "all", "whalers"],
-        owner: user,
-        score: 359
-    )
+    static func makeQuestion(id: Int) -> Question {
+        Question(
+            id: id,
+            viewCount: 2770,
+            title: "She suspicion dejection saw instantly. Well deny may real one told yet saw hard dear.",
+            body: "Bed chief house rapid right the. Set noisy one state tears which. No girl oh part must fact high my he. Simplicity in excellence melancholy as remarkably discovered. Own partiality motionless was old excellence she inquietude contrasted. ",
+            creationDate: Date(),
+            tags: ["monkey", "rope", "found", "all", "whalers"],
+            owner: user,
+            answerCount: 6,
+            isAnswered: true,
+            score: 359
+        )
+    }
 }
 
 //MARK: - Previews

@@ -9,27 +9,34 @@ import Foundation
 import UIKit
 
 struct User {
-    let name: String
-    let aboutMe: String
+    var name: String
+    var aboutMe: String
     let reputation: Int
-    let avatar: UIImage
+    var avatar: UIImage
 }
 
-struct Question {
+struct Question: Identifiable {
+    let id: Int
     let viewCount: Int
     let title: String
     let body: String
     let creationDate: Date
     let tags: [String]
     let owner: User
+    let answerCount: Int
+    let isAnswered: Bool
+    
     private(set) var score: Int
     private(set) var vote = Vote.none
+    
     mutating func upvote() {
         cast(vote: .up)
     }
+    
     mutating func downvote() {
         cast(vote: .down)
     }
+    
     mutating func unvote() {
         score -= vote.rawValue
         vote = .none
