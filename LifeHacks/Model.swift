@@ -63,6 +63,16 @@ struct Comment: Identifiable {
     let owner: User
 }
 
+//MARK: - Tag Model
+
+struct Tag: Identifiable {
+    let id: Int
+    let count: Int
+    let name: String
+    let excerpt: String
+    let questions: [Question]
+}
+
 //MARK: - Theme Model
 
 struct Theme: Identifiable {

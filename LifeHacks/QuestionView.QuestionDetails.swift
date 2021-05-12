@@ -10,12 +10,28 @@ import SwiftUI
 extension QuestionView {
     struct QuestionDetails: View {
         @Binding var question: Question
+        let jumpToAnswer: () -> Void
         
         var body: some View {
             VStack(alignment: .leading, spacing: 24.0) {
                 HStack(alignment: .top, spacing: 16.0) {
-                    QuestionView.Voting(score: question.score, vote: .init(vote: question.vote), upvote: { question.upvote() }, downvote: { question.downvote() }, unvote: { question.unvote() } )
-                    Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
+                    QuestionView.Voting(
+                        score: question.score,
+                        vote: .init(vote: question.vote),
+                        upvote: { question.upvote() },
+                        downvote: { question.downvote() },
+                        unvote: { question.unvote() }
+                    )
+                    Info(
+                        title: question.title,
+                        viewCount: question.viewCount,
+                        date: question.creationDate,
+                        tags: question.tags
+                    )
+                }
+                if question.isAnswered {
+                    Button("Go to accepted answer", action: jumpToAnswer)
+                        .font(Font.footnote.bold())
                 }
                 Text(question.body)
                     .font(.subheadline)
