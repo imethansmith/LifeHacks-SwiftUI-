@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: - TopTagsView
 struct TopTagsView: View {
     let tags: [Tag]
     
@@ -22,9 +23,11 @@ struct TopTagsView: View {
                 }
             }
         }
+        .navigationTitle("Tags")
     }
 }
 
+//MARK: - Header
 extension TopTagsView {
     struct Header: View {
         let title: String
@@ -49,9 +52,11 @@ extension TopTagsView {
     }
 }
 
-
+//MARK: - Previews
 struct TopTagsView_Previews: PreviewProvider {
     static var previews: some View {
-        TopTagsView(tags: TestData.topTags)
+        NavigationView {
+            TopTagsView(tags: TestData.topTags)
+        }
     }
 }

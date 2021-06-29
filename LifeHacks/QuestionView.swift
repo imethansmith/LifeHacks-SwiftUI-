@@ -8,28 +8,28 @@
 import SwiftUI
 
 //MARK: - QuestionView
-
 struct QuestionView: View {
     @State var question: Question
     
     var body: some View {
         ScrollViewReader { scrolling in
             ScrollView {
-                        LazyVStack {
-                            QuestionDetails(question: $question, jumpToAnswer: { jumpToAnswer(with: scrolling) })
-                                .padding(.horizontal, 20.0)
-                            PaddedDivider()
-                            Comments(comments: question.comments)
-                            PaddedDivider()
-                            ForEach(question.answers.indices) { index in
-                                AnswerDetails(answer: $question.answers[index])
-                                    .padding(.horizontal, 20.0)
-                                    .padding(.vertical, 24.0)
-                                    .id(question.answers[index].id)
-                                PaddedDivider()
-                            }
-                        }
+                LazyVStack {
+                    QuestionDetails(question: $question,
+                                    jumpToAnswer: { jumpToAnswer(with: scrolling) })
+                        .padding(.horizontal, 20.0)
+                    PaddedDivider()
+                    Comments(comments: question.comments)
+                    PaddedDivider()
+                    ForEach(question.answers.indices) { index in
+                        AnswerDetails(answer: $question.answers[index])
+                            .padding(.horizontal, 20.0)
+                            .padding(.vertical, 24.0)
+                            .id(question.answers[index].id)
+                        PaddedDivider()
                     }
+                }
+            }
         }
         
     }
@@ -54,7 +54,6 @@ extension QuestionView {
 }
 
 //MARK: - Owner
-
 extension QuestionView {
     struct Owner: View {
         let name: String
@@ -86,24 +85,20 @@ extension QuestionView.Owner {
 }
 
 //MARK: - Comments
-
 extension QuestionView {
     struct Comments: View {
         let comments: [LifeHacks.Comment]
         
         var body: some View {
             GeometryReader { geometry in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(alignment: .top) {
-                        ForEach(self.comments) { comment in
-                            Comment(text: comment.body, ownerName: comment.owner.name)
-                                .frame(width: geometry.size.width - 40.0)
-                            
-                        }
+                TabView {
+                    ForEach(self.comments) { comment in
+                        Comment(text: comment.body, ownerName: comment.owner.name)
+                            .frame(width: geometry.size.width - 40.0)
+                        
                     }
-                    .padding(.horizontal)
                 }
-                
+                .tabViewStyle(PageTabViewStyle())
             }
             .frame(height: 174.0)
             .padding(.vertical)
@@ -111,6 +106,7 @@ extension QuestionView {
     }
 }
 
+//MARK: - Comment
 extension QuestionView.Comments {
     struct Comment: View {
         let text: String
@@ -134,7 +130,6 @@ extension QuestionView.Comments {
 }
 
 //MARK: - Previews
-
 struct QuestionView_Previews: PreviewProvider {
     typealias Owner = QuestionView.Owner
     typealias Comments = QuestionView.Comments
@@ -146,13 +141,16 @@ struct QuestionView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            QuestionView(question: question)
-                .fullScreenPreviews()
+            NavigationView {
+                QuestionView(question: question)
+            }
+            .fullScreenPreviews(showAll: true)
             Owner(user: user)
-                .blueStyle()
-                .previewWithName(String.name(for: Owner.self))
+                .style(.primary)
+                .previewWithName(.name(for: Owner.self))
             Comments(comments: question.comments)
-                .namedPreview()
+                .previewLayout(.sizeThatFits)
+                .previewDisplayName(.name(for: Comments.self))
             Comment(text: comment.body, ownerName: comment.owner.name)
                 .namedPreview()
         }

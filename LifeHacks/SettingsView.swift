@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//MARK: - SettingsView
 struct SettingsView: View {
     @State var selectedTheme: Theme = .default
     
@@ -17,12 +18,15 @@ struct SettingsView: View {
                     Row(name: theme.name, selected: theme.id == selectedTheme.id) {
                         selectedTheme = theme
                     }
+                    .environment(\.theme, theme)
                 }
             }
         }
+        .navigationTitle("Settings")
     }
 }
 
+//MARK: - Row
 extension SettingsView {
     struct Row: View {
         let name: String
@@ -44,12 +48,15 @@ extension SettingsView {
     }
 }
 
+//MARK: - Previews
 struct SettingsView_Previews: PreviewProvider {
     typealias Row = SettingsView.Row
     
     static var previews: some View {
         Group {
-            SettingsView()
+            NavigationView {
+                SettingsView()
+            }
             VStack {
                 Row(name: "Name", selected: false, action: {})
                 Row(name: "Name", selected: true, action: {})

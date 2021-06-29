@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+//MARK: - TopUsersView
 struct TopUsersView: View {
-    private let columns = [GridItem(.adaptive(minimum: 200))]
-    
+    @ScaledMetric private var columnWidth: CGFloat = 200.0
+        
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 24.0) {
@@ -19,19 +20,30 @@ struct TopUsersView: View {
             }
             .padding(.top, 24.0)
         }
+        .navigationTitle("Users")
     }
 }
 
+private extension TopUsersView {
+    var columns: [GridItem] {
+        [GridItem(.adaptive(minimum: columnWidth))]
+    }
+}
+
+//MARK: - Cell
 extension TopUsersView {
     struct Cell: View {
         let name: String
         let reputation: Int
         let avatar: UIImage
         
+        @ScaledMetric private var avatarSize: CGFloat = 37.0
+        @ScaledMetric private var spacing: CGFloat = 8.0
+        
         var body: some View {
-            HStack {
+            HStack(spacing: spacing) {
                 RoundImage(image: avatar)
-                    .frame(width: 37.0, height: 37.0)
+                    .frame(width: avatarSize, height: avatarSize)
             }
             VStack(alignment: .leading, spacing: 4.0) {
                 Text(name)
@@ -53,8 +65,12 @@ extension TopUsersView.Cell {
     }
 }
 
+//MARK: - Previews
 struct TopUsersView_Previews: PreviewProvider {
     static var previews: some View {
-        TopUsersView()
+        NavigationView {
+            TopUsersView()
+        }
+        .fullScreenPreviews()
     }
 }

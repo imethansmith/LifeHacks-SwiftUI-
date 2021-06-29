@@ -16,15 +16,10 @@ extension QuestionView {
         let downvote: () -> Void
         let unvote: () -> Void
         
+        @Environment(\.sizeCategory) private var sizeCategory
+        
         var body: some View {
-            VStack(spacing: 8.0) {
-                VoteButton(buttonType: .up, highlighted: vote == .up, action: { vote(.up) })
-                Text("\(score)")
-                    .font(.title)
-                    .foregroundColor(.secondary)
-                VoteButton(buttonType: .down, highlighted: vote == .down, action: { vote(.down) })
-            }
-            .frame(minWidth: 56.0)
+            AdaptiveView(standard: standardContent, large: largeContent)
         }
         
         func vote(_ vote: Vote) {
@@ -33,6 +28,31 @@ extension QuestionView {
             case (.none, .down), (.up, .down): downvote()
             default: unvote()
             }
+        }
+    }
+}
+
+private extension QuestionView.Voting {
+    var content: some View {
+        Group {
+            VoteButton(buttonType: .up, highlighted: vote == .up, action: { self.vote(.up) })
+            Text("\(score)")
+                .font(.title)
+                .foregroundColor(.secondary)
+            VoteButton(buttonType: .down, highlighted: vote == .down, action: { self.vote(.down) })
+        }
+    }
+    
+    var standardContent: some View {
+        VStack(spacing: 8.0) {
+            content
+        }
+        .frame(minWidth: 56.0)
+    }
+    
+    var largeContent: some View {
+        HStack {
+            content
         }
     }
 }
@@ -62,13 +82,13 @@ extension QuestionView.Voting {
         let buttonType: ButtonType
         let highlighted: Bool
         let action: () -> Void
-        
+                
         var body: some View {
             Button(action: action) {
                 buttonType.image(highlighted: highlighted)
                     .resizable()
                     .frame(width:32, height: 32)
-                    .foregroundColor(.orange)
+                    .motif(.secondary)
             }
         }
     }
@@ -101,6 +121,9 @@ struct QuestionView_Voting_Previews: PreviewProvider {
                 Voting(score: question.score, vote: .down, upvote: {}, downvote: {}, unvote: {})
             }
             .previewWithName(String.name(for: Voting.self))
+            Voting(score: question.score, vote: .none, upvote: { }, downvote: { }, unvote: { })
+                .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
+                .previewWithName("XXXL")
             HStack(spacing: 16) {
                 VoteButton(buttonType: .up, highlighted: true, action: {})
                 VoteButton(buttonType: .up, highlighted: false, action: {})

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+fileprivate typealias QuestionDetails = QuestionView.QuestionDetails
+
 extension QuestionView {
     struct QuestionDetails: View {
         @Binding var question: Question
@@ -14,21 +16,8 @@ extension QuestionView {
         
         var body: some View {
             VStack(alignment: .leading, spacing: 24.0) {
-                HStack(alignment: .top, spacing: 16.0) {
-                    QuestionView.Voting(
-                        score: question.score,
-                        vote: .init(vote: question.vote),
-                        upvote: { question.upvote() },
-                        downvote: { question.downvote() },
-                        unvote: { question.unvote() }
-                    )
-                    Info(
-                        title: question.title,
-                        viewCount: question.viewCount,
-                        date: question.creationDate,
-                        tags: question.tags
-                    )
-                }
+                AdaptiveView(standard: HStack(alignment: .top, spacing: 16.0) { topContent },
+                             large: VStack { topContent })
                 if question.isAnswered {
                     Button("Go to accepted answer", action: jumpToAnswer)
                         .font(Font.footnote.bold())
@@ -36,18 +25,36 @@ extension QuestionView {
                 Text(question.body)
                     .font(.subheadline)
                 HStack {
+                    AdaptiveView(standard: Spacer(), large: EmptyView())
                     Spacer()
+//                    NavigationLink(destination: ProfileView(user: question.owner, isMainUser: true))
                     QuestionView.Owner(user: question.owner)
-                        .blueStyle()
+                        .style(.primary)
                 }
             }
         }
     }
 }
 
-//MARK: - Info
+//MARK: - topContent
+extension QuestionDetails {
+    var topContent: some View {
+        Group {
+            QuestionView.Voting(score: question.score,
+                                vote: .init(vote: question.vote),
+                                upvote: { },
+                                downvote: { },
+                                unvote: { })
+            Info(title: question.title,
+                 viewCount: question.viewCount,
+                 date: question.creationDate,
+                 tags: question.tags)
+        }
+    }
+}
 
-extension QuestionView.QuestionDetails {
+//MARK: - Info
+extension QuestionDetails {
     struct Info: View {
         let title: String
         let viewCount: Int
@@ -70,16 +77,19 @@ extension QuestionView.QuestionDetails {
     }
 }
 
+//MARK: - Previews
 struct QuestionView_QuestionDetails_Previews: PreviewProvider {
-    typealias QuestionDetails = QuestionView.QuestionDetails
-    typealias Info = QuestionDetails.Info
+    fileprivate typealias Info = QuestionDetails.Info
     
     static let question = TestData.question
     
     static var previews: some View {
         Group {
-            QuestionDetails(question: .constant(question))
+            QuestionDetails(question: .constant(question), jumpToAnswer: {})
                 .namedPreview()
+            QuestionDetails(question: .constant(question), jumpToAnswer: {})
+                .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
+                .previewWithName(String.name(for: QuestionDetails.self) + "XXXL")
             Info(title: question.title, viewCount: question.viewCount, date: question.creationDate, tags: question.tags)
                 .namedPreview()
         }

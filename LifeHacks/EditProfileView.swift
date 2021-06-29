@@ -66,14 +66,14 @@ extension EditProfileView {
     struct ErrorMessage: View {
         let text: String
         var isVisible: Bool = false
-        
+                
         var body: some View {
             Group {
                 if isVisible {
                     Text(text)
                         .font(.footnote)
                         .bold()
-                        .foregroundColor(.orange)
+                        .motif(.secondary)
                 }
             }
         }

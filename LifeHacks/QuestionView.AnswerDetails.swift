@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+fileprivate typealias AnswerDetails = QuestionView.AnswerDetails
+
 extension QuestionView {
     struct AnswerDetails: View {
         @Binding var answer: Answer
@@ -14,7 +16,12 @@ extension QuestionView {
         var body: some View {
             HStack(alignment: .top, spacing: 16.0) {
                 VStack(spacing: 16.0) {
-                    QuestionView.Voting(score: answer.score, vote: .init(vote: answer.vote), upvote: { answer.upvote() }, downvote: { answer.downvote() }, unvote: { answer.unvote() })
+
+                    QuestionView.Voting(score: answer.score,
+                                        vote: .init(vote: answer.vote),
+                                        upvote: { answer.upvote() },
+                                        downvote: { answer.downvote() },
+                                        unvote: { answer.unvote() })
                     if answer.isAccepted {
                         Image(systemName: "checkmark.circle.fill")
                             .font(.largeTitle)
@@ -30,7 +37,7 @@ extension QuestionView {
                     HStack {
                         Spacer()
                         QuestionView.Owner(user: answer.owner)
-                            .orangeStyle()
+                            .style(.secondary)
                     }
                     .padding(.top, 16.0)
                 }
@@ -38,6 +45,8 @@ extension QuestionView {
         }
     }
 }
+
+
 struct QuestionView_AnswerDetails_Previews: PreviewProvider {
     typealias Details = QuestionView.AnswerDetails
     

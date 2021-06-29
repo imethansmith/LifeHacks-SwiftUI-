@@ -101,6 +101,17 @@ struct Theme: Identifiable {
     static let allThemes: [Theme] = [.default, .web]
 }
 
+struct ThemeKey: EnvironmentKey {
+    static let defaultValue = Theme.default
+}
+
+extension EnvironmentValues {
+    var theme: Theme {
+        get { self[ThemeKey.self] }
+        set { self[ThemeKey.self] = newValue }
+    }
+}
+
 //MARK: - Votable Protocol
 
 protocol Votable {

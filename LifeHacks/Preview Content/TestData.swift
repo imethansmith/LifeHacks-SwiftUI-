@@ -19,10 +19,14 @@ struct TestData {
         avatar: #imageLiteral(resourceName: "Avatar")
     )
     static let otherUser = makeUser(id: 1)
+    static let users = [makeUser(id: 1), makeUser(id: 2), makeUser(id: 3), makeUser(id: 4), makeUser(id: 5)]
     static var question = makeQuestion(id: 0)
     static let questions = [makeQuestion(id: 1), makeQuestion(id: 2), makeQuestion(id: 3)]
     static let answer = makeAnswer(id: 0, isAccepted: true)
     static let comment = makeComment(id: 0)
+    
+    static let tag = makeTag(id: 0)
+    static let topTags = [makeTag(id: 1), makeTag(id: 2), makeTag(id: 3)]
     
     static func makeUser(id: Int) -> User {
         User(id: id, name: "Martin Abasto", aboutMe: longText, reputation: 986, avatar: #imageLiteral(resourceName: "Other"))
@@ -30,6 +34,10 @@ struct TestData {
     
     static func makeComment(id: Int) -> Comment {
         Comment(id: id, body: longText, owner: otherUser)
+    }
+    
+    static func makeTag(id: Int) -> Tag {
+        Tag(id: id, count: 123, name: "Lorem", excerpt: shortText, questions: questions)
     }
     
     static func makeAnswer(id: Int, isAccepted: Bool = false) -> Answer {

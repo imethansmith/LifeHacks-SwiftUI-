@@ -20,30 +20,75 @@ extension LinearGradient {
     }
 }
 
-//extension LinearGradient {
-//    static var blue: Self {
-//        let gradient = Gradient(colors: [.lightBlue, .blue])
-//        return LinearGradient(gradient: gradient, startPoint: .init(x: 0, y: 0), endPoint: .init(x: 0, y: 1))
-//    }
-//}
-
 struct Style: ViewModifier {
-    let gradient: LinearGradient
+    let role: Role
     var filled = true
+    var rounded = true
+    
+    @Environment(\.theme) private var theme: Theme
+    
+    var gradient: LinearGradient {
+        role == .primary
+            ? theme.primaryGradient
+            : theme.secondaryGradient
+    }
+    
+    var cornerRadius: CGFloat {
+        rounded ? 6.0 : 0.0
+    }
     
     func body(content: Content) -> some View {
         Group {
             if filled {
                 content
                     .background(gradient)
-                    .cornerRadius(6.0)
+                    .cornerRadius(cornerRadius)
                     .foregroundColor(.white)
             } else {
                 content
-                    .background(RoundedRectangle(cornerRadius: 6.0)
-                                    .strokeBorder(gradient, lineWidth: 2.0))
+                    .background(
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .strokeBorder(gradient, lineWidth: 2.0)
+                    )
             }
         }
+    }
+}
+
+extension Style {
+    enum Role: CaseIterable {
+        case primary
+        case secondary
+    }
+}
+
+extension View {
+    func style(_ role: Style.Role, filled: Bool = true, rounded: Bool = true) -> some View {
+        modifier(Style(role: role, filled: filled, rounded: rounded))
+    }
+    
+    func blueStyle() -> some View {
+        style(forTheme: .default, withRole: .primary)
+    }
+    
+    func tealStyle() -> some View {
+        style(forTheme: .web, withRole: .primary)
+    }
+    
+    func orangeStyle(filled: Bool = true) -> some View {
+        style(forTheme: .default, withRole: .secondary, filled: filled)
+    }
+    
+    func greenStyle(filled: Bool = true) -> some View {
+        style(forTheme: .web, withRole: .secondary, filled: filled)
+    }
+}
+
+private extension View {
+    func style(forTheme theme: Theme, withRole role: Style.Role, filled: Bool = true) -> some View {
+        self
+            .modifier(Style(role: role, filled: filled))
+            .environment(\.theme, theme)
     }
 }
 
@@ -85,24 +130,6 @@ struct Styles_Previews: PreviewProvider {
         }
     }
     
-}
-
-extension View {
-    func blueStyle() -> some View {
-        modifier(Style(gradient: .blue))
-    }
-    
-    func tealStyle() -> some View {
-        modifier(Style(gradient: .teal))
-    }
-    
-    func orangeStyle(filled: Bool = true) -> some View {
-        modifier(Style(gradient: .orange, filled: filled))
-    }
-    
-    func greenStyle(filled: Bool = true) -> some View {
-        modifier(Style(gradient: .green, filled: filled))
-    }
 }
 
 //MARK: - Colors
