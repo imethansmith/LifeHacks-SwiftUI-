@@ -12,6 +12,8 @@ struct ProfileView: View {
     let user: User
     var isMainUser: Bool = false
     
+    @State private var isEditing = false
+    
     var body: some View {
         ScrollView {
             Header (
@@ -24,6 +26,23 @@ struct ProfileView: View {
                 .padding(.horizontal, 20.0)
         }
         .navigationTitle("Profile")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction, content: { editButton })
+        }
+        .fullScreenCover(isPresented: $isEditing) {
+            NavigationView {
+                EditProfileView(user: user)
+            }
+        }
+    }
+}
+
+private extension ProfileView {
+    var editButton: Button<Text>? {
+        guard isMainUser else { return nil }
+        return Button(action: { isEditing = true }) {
+            Text("Edit")
+        }
     }
 }
 

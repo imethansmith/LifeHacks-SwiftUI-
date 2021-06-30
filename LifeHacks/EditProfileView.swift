@@ -7,8 +7,11 @@
 
 import SwiftUI
 
+//MARK: - EditProfileView
 struct EditProfileView: View {
     @State var user: User
+    
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         VStack {
@@ -17,10 +20,25 @@ struct EditProfileView: View {
             Spacer()
         }
         .padding(20.0)
-        .animation(.default)
+        .navigationTitle("Edit Profile")
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("Cancel", action: dismiss)
+            }
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save", action: dismiss)
+            }
+        }
     }
 }
 
+private extension EditProfileView {
+    func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+    }
+}
+
+//MARK: - Header
 extension EditProfileView {
     struct Header: View {
         @Binding var name: String
@@ -42,7 +60,6 @@ extension EditProfileView {
 }
 
 //MARK: - About Me
-
 extension EditProfileView {
     struct AboutMe: View {
         @Binding var text: String
@@ -61,12 +78,11 @@ extension EditProfileView {
 }
 
 //MARK: - Error Message
-
 extension EditProfileView {
     struct ErrorMessage: View {
         let text: String
         var isVisible: Bool = false
-                
+        
         var body: some View {
             Group {
                 if isVisible {
@@ -81,7 +97,6 @@ extension EditProfileView {
 }
 
 //MARK: - Preview
-
 struct EditProfileView_Previews: PreviewProvider {
     typealias Header = EditProfileView.Header
     typealias AboutMe = EditProfileView.AboutMe
@@ -90,18 +105,23 @@ struct EditProfileView_Previews: PreviewProvider {
     static let user = TestData.user
     
     static var previews: some View {
-        EditProfileView(user: TestData.user)
-        VStack(spacing: 16.0) {
-            Header(name: .constant(user.name), avatar: user.avatar)
-            Header(name: .constant(""), avatar: user.avatar)
+        Group {
+            NavigationView {
+                EditProfileView(user: TestData.user)
+            }
+            .fullScreenPreviews()
+            VStack(spacing: 16.0) {
+                Header(name: .constant(user.name), avatar: user.avatar)
+                Header(name: .constant(""), avatar: user.avatar)
+            }
+            .previewWithName(.name(for: Header.self))
+            VStack(spacing: 16.0) {
+                AboutMe(text: .constant(user.aboutMe))
+                AboutMe(text: .constant(""))
+            }
+            .previewWithName(.name(for: AboutMe.self))
+            EditProfileView.ErrorMessage(text: "The name cannot be empty", isVisible: true)
+                .namedPreview()
         }
-        .previewWithName(.name(for: Header.self))
-        VStack(spacing: 16.0) {
-            AboutMe(text: .constant(user.aboutMe))
-            AboutMe(text: .constant(""))
-        }
-        .previewWithName(.name(for: AboutMe.self))
-        EditProfileView.ErrorMessage(text: "The name cannot be empty", isVisible: true)
-            .namedPreview()
     }
 }

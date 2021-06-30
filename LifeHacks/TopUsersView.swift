@@ -9,16 +9,21 @@ import SwiftUI
 
 //MARK: - TopUsersView
 struct TopUsersView: View {
+    let users: [User]
+    
     @ScaledMetric private var columnWidth: CGFloat = 200.0
         
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 24.0) {
-                ForEach(TestData.users) { user in
-                    Cell(user: user)
+                ForEach(users) { user in
+                    NavigationLink(destination: ProfileView(user: user)) {
+                        Cell(user: user)
+                    }
                 }
             }
             .padding(.top, 24.0)
+            .buttonStyle(PlainButtonStyle())
         }
         .navigationTitle("Users")
     }
@@ -67,9 +72,11 @@ extension TopUsersView.Cell {
 
 //MARK: - Previews
 struct TopUsersView_Previews: PreviewProvider {
+    static let users = TestData.users
+    
     static var previews: some View {
         NavigationView {
-            TopUsersView()
+            TopUsersView(users: users)
         }
         .fullScreenPreviews()
     }

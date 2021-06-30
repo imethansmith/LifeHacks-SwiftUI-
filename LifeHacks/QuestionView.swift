@@ -93,9 +93,8 @@ extension QuestionView {
             GeometryReader { geometry in
                 TabView {
                     ForEach(self.comments) { comment in
-                        Comment(text: comment.body, ownerName: comment.owner.name)
+                        Comment(comment: comment)
                             .frame(width: geometry.size.width - 40.0)
-                        
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
@@ -109,16 +108,17 @@ extension QuestionView {
 //MARK: - Comment
 extension QuestionView.Comments {
     struct Comment: View {
-        let text: String
-        let ownerName: String
+        let comment: LifeHacks.Comment
         
         var body: some View {
             VStack(alignment: .leading, spacing: 8.0) {
-                Text(text)
+                Text(comment.body)
                     .lineLimit(5)
                 Button(action: {}) {
-                    Text(ownerName)
-                        .foregroundColor(.accentColor)
+                    NavigationLink(destination: ProfileView(user: comment.owner)) {
+                        Text(comment.owner.name)
+                            .foregroundColor(.accentColor)
+                    }
                 }
             }
             .font(.subheadline)
@@ -151,7 +151,7 @@ struct QuestionView_Previews: PreviewProvider {
             Comments(comments: question.comments)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName(.name(for: Comments.self))
-            Comment(text: comment.body, ownerName: comment.owner.name)
+            Comment(comment: comment)
                 .namedPreview()
         }
     }

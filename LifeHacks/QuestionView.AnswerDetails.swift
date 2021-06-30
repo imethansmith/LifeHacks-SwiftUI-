@@ -9,6 +9,7 @@ import SwiftUI
 
 fileprivate typealias AnswerDetails = QuestionView.AnswerDetails
 
+//MARK: - QuestionView.AnswerDetails
 extension QuestionView {
     struct AnswerDetails: View {
         @Binding var answer: Answer
@@ -16,7 +17,7 @@ extension QuestionView {
         var body: some View {
             HStack(alignment: .top, spacing: 16.0) {
                 VStack(spacing: 16.0) {
-
+                    
                     QuestionView.Voting(score: answer.score,
                                         vote: .init(vote: answer.vote),
                                         upvote: { answer.upvote() },
@@ -36,8 +37,10 @@ extension QuestionView {
                         .foregroundColor(.secondary)
                     HStack {
                         Spacer()
-                        QuestionView.Owner(user: answer.owner)
-                            .style(.secondary)
+                        NavigationLink(destination: ProfileView(user: answer.owner)) {
+                            QuestionView.Owner(user: answer.owner)
+                                .style(.secondary)
+                        }
                     }
                     .padding(.top, 16.0)
                 }
@@ -46,7 +49,7 @@ extension QuestionView {
     }
 }
 
-
+//MARK: - Previews
 struct QuestionView_AnswerDetails_Previews: PreviewProvider {
     typealias Details = QuestionView.AnswerDetails
     

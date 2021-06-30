@@ -13,7 +13,7 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("APP THEME")) {
+            Section(header: Text("App Theme")) {
                 ForEach(Theme.allThemes) { theme in
                     Row(name: theme.name, selected: theme.id == selectedTheme.id) {
                         selectedTheme = theme

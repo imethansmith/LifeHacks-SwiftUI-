@@ -27,7 +27,7 @@ struct ContentView: View {
             .tabItem { Label("Tags", systemImage: "tag") }
             
             NavigationView {
-                TopUsersView()
+                TopUsersView(users: users)
             }
             .tabItem { Label("Users", systemImage: "person.2") }
             

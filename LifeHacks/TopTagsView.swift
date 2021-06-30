@@ -16,7 +16,9 @@ struct TopTagsView: View {
             ForEach(tags) { tag in
                 DisclosureGroup {
                     ForEach(tag.questions) { question in
-                        QuestionRow(question: question)
+                        NavigationLink(destination: QuestionView(question: question)) {
+                            QuestionRow(question: question)
+                        }
                     }
                 } label: {
                     Header(title: tag.name, count: tag.count, excerpt: tag.excerpt)

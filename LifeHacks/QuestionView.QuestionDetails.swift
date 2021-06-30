@@ -9,6 +9,7 @@ import SwiftUI
 
 fileprivate typealias QuestionDetails = QuestionView.QuestionDetails
 
+//MARK: - QuestionView.QuestionDetails
 extension QuestionView {
     struct QuestionDetails: View {
         @Binding var question: Question
@@ -26,10 +27,10 @@ extension QuestionView {
                     .font(.subheadline)
                 HStack {
                     AdaptiveView(standard: Spacer(), large: EmptyView())
-                    Spacer()
-//                    NavigationLink(destination: ProfileView(user: question.owner, isMainUser: true))
-                    QuestionView.Owner(user: question.owner)
-                        .style(.primary)
+                    NavigationLink(destination: ProfileView(user: question.owner, isMainUser: true)) {
+                        QuestionView.Owner(user: question.owner)
+                            .style(.primary)
+                    }
                 }
             }
         }
