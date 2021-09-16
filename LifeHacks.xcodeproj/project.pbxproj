@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3E0166332689CA5500545383 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0166322689CA5500545383 /* ProfileView.swift */; };
+		3E0DD2AC26F343F6000E4B89 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DD2AB26F343F6000E4B89 /* StateController.swift */; };
+		3E0DD2AE26F34AF2000E4B89 /* NavigationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DD2AD26F34AF2000E4B89 /* NavigationMap.swift */; };
 		3E398DEC263D61480067DF74 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DEB263D61480067DF74 /* Styles.swift */; };
 		3E398DEE2641E5600067DF74 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DED2641E5600067DF74 /* EditProfileView.swift */; };
 		3E398DF0264520DD0067DF74 /* TopQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DEF264520DC0067DF74 /* TopQuestionsView.swift */; };
@@ -19,8 +21,7 @@
 		3E398DFC2649357A0067DF74 /* QuestionView.AnswerDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DFB2649357A0067DF74 /* QuestionView.AnswerDetails.swift */; };
 		3E398E3D264BBE560067DF74 /* TopTagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398E3C264BBE560067DF74 /* TopTagsView.swift */; };
 		3E398E3F264BC5440067DF74 /* TopUsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398E3E264BC5440067DF74 /* TopUsersView.swift */; };
-		3E39CD472639213B009EE552 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD462639213B009EE552 /* AppDelegate.swift */; };
-		3E39CD492639213B009EE552 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD482639213B009EE552 /* SceneDelegate.swift */; };
+		3E39CD472639213B009EE552 /* LifehacksApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD462639213B009EE552 /* LifehacksApp.swift */; };
 		3E39CD4B2639213B009EE552 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E39CD4A2639213B009EE552 /* ContentView.swift */; };
 		3E39CD4D2639213D009EE552 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E39CD4C2639213D009EE552 /* Assets.xcassets */; };
 		3E39CD502639213D009EE552 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E39CD4F2639213D009EE552 /* Preview Assets.xcassets */; };
@@ -54,6 +55,8 @@
 
 /* Begin PBXFileReference section */
 		3E0166322689CA5500545383 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		3E0DD2AB26F343F6000E4B89 /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
+		3E0DD2AD26F34AF2000E4B89 /* NavigationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMap.swift; sourceTree = "<group>"; };
 		3E398DEB263D61480067DF74 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		3E398DED2641E5600067DF74 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		3E398DEF264520DC0067DF74 /* TopQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopQuestionsView.swift; sourceTree = "<group>"; };
@@ -66,8 +69,7 @@
 		3E398E3C264BBE560067DF74 /* TopTagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTagsView.swift; sourceTree = "<group>"; };
 		3E398E3E264BC5440067DF74 /* TopUsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopUsersView.swift; sourceTree = "<group>"; };
 		3E39CD432639213B009EE552 /* LifeHacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeHacks.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E39CD462639213B009EE552 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E39CD482639213B009EE552 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		3E39CD462639213B009EE552 /* LifehacksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifehacksApp.swift; sourceTree = "<group>"; };
 		3E39CD4A2639213B009EE552 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3E39CD4C2639213D009EE552 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E39CD4F2639213D009EE552 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -137,8 +139,7 @@
 			children = (
 				3E0166322689CA5500545383 /* ProfileView.swift */,
 				3EDE6472268081AF0041D856 /* Motif.swift */,
-				3E39CD462639213B009EE552 /* AppDelegate.swift */,
-				3E39CD482639213B009EE552 /* SceneDelegate.swift */,
+				3E39CD462639213B009EE552 /* LifehacksApp.swift */,
 				3E39CD76263921D0009EE552 /* Model.swift */,
 				3E39CD4A2639213B009EE552 /* ContentView.swift */,
 				3E5D0E38263AA0F9001F945D /* QuestionView.swift */,
@@ -147,9 +148,11 @@
 				3EDE6470267DE5780041D856 /* AdaptiveView.swift */,
 				3E398DF526492F2D0067DF74 /* QuestionView.Voting.swift */,
 				3E398DEF264520DC0067DF74 /* TopQuestionsView.swift */,
+				3E0DD2AD26F34AF2000E4B89 /* NavigationMap.swift */,
 				3E398DF1264756300067DF74 /* QuestionRow.swift */,
 				3E398DED2641E5600067DF74 /* EditProfileView.swift */,
 				3E398DF3264757C30067DF74 /* SettingsView.swift */,
+				3E0DD2AB26F343F6000E4B89 /* StateController.swift */,
 				3ED94A06263C0069000E564C /* TagsView.swift */,
 				3E398E3C264BBE560067DF74 /* TopTagsView.swift */,
 				3E398E3E264BC5440067DF74 /* TopUsersView.swift */,
@@ -322,6 +325,7 @@
 				3E398DF2264756300067DF74 /* QuestionRow.swift in Sources */,
 				3E398DEE2641E5600067DF74 /* EditProfileView.swift in Sources */,
 				3EDE6473268081AF0041D856 /* Motif.swift in Sources */,
+				3E0DD2AE26F34AF2000E4B89 /* NavigationMap.swift in Sources */,
 				3E398DEC263D61480067DF74 /* Styles.swift in Sources */,
 				3E398DF8264930780067DF74 /* TestData.swift in Sources */,
 				3E398DFC2649357A0067DF74 /* QuestionView.AnswerDetails.swift in Sources */,
@@ -330,11 +334,11 @@
 				3E5D0E39263AA0F9001F945D /* QuestionView.swift in Sources */,
 				3E39CD77263921D0009EE552 /* Model.swift in Sources */,
 				3E398E3D264BBE560067DF74 /* TopTagsView.swift in Sources */,
+				3E0DD2AC26F343F6000E4B89 /* StateController.swift in Sources */,
 				3ED94A07263C0069000E564C /* TagsView.swift in Sources */,
 				3E5D0E3B263AAC9A001F945D /* Type Extensions.swift in Sources */,
 				3E398DF0264520DD0067DF74 /* TopQuestionsView.swift in Sources */,
-				3E39CD472639213B009EE552 /* AppDelegate.swift in Sources */,
-				3E39CD492639213B009EE552 /* SceneDelegate.swift in Sources */,
+				3E39CD472639213B009EE552 /* LifehacksApp.swift in Sources */,
 				3E398DF626492F2D0067DF74 /* QuestionView.Voting.swift in Sources */,
 				3E398DFA264933B50067DF74 /* QuestionView.QuestionDetails.swift in Sources */,
 				3ED94A09263D5B3B000E564C /* RoundImage.swift in Sources */,
@@ -427,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -482,7 +486,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

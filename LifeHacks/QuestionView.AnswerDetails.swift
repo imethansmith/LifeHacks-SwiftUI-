@@ -17,7 +17,6 @@ extension QuestionView {
         var body: some View {
             HStack(alignment: .top, spacing: 16.0) {
                 VStack(spacing: 16.0) {
-                    
                     QuestionView.Voting(score: answer.score,
                                         vote: .init(vote: answer.vote),
                                         upvote: { answer.upvote() },

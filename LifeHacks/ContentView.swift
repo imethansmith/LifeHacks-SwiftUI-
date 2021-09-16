@@ -9,30 +9,27 @@ import SwiftUI
 
 //MARK: - ContentView
 struct ContentView: View {
-    let questions = TestData.questions
-    let tags = TestData.topTags
-    let users = TestData.users
-    let user = TestData.user
+    @EnvironmentObject private var stateController: StateController
     
     var body: some View {
         TabView {
             NavigationView {
-                TopQuestionsView(questions: questions)
+                TopQuestionsView()
             }
             .tabItem { Label("Top Questions", systemImage: "list.number") }
             
             NavigationView {
-                TopTagsView(tags: tags)
+                TopTagsView()
             }
             .tabItem { Label("Tags", systemImage: "tag") }
             
             NavigationView {
-                TopUsersView(users: users)
+                TopUsersView()
             }
             .tabItem { Label("Users", systemImage: "person.2") }
             
             NavigationView {
-                ProfileView(user: user, isMainUser: true)
+                ProfileView(user: stateController.mainUser, isMainUser: true)
             }
             .tabItem { Label("Profile", systemImage: "person.circle") }
             
@@ -42,6 +39,8 @@ struct ContentView: View {
             .tabItem { Label("Settings", systemImage: "gear") }
             
         }
+        .accentColor(stateController.theme.accentColor)
+        .envrionment(.theme, stateController.theme)
     }
 }
 

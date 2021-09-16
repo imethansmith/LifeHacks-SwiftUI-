@@ -44,16 +44,33 @@ extension EditProfileView {
         @Binding var name: String
         var avatar: UIImage
         
+        @State private var pickingSource: Bool = false
+        
         var body: some View {
             HStack(alignment: .top) {
-                RoundImage(image: avatar, borderColor: .blue)
-                    .frame(width: 62.0, height: 62.0)
+                ZStack {
+                    RoundImage(image: avatar, borderColor: Color.accentColor)
+                        .frame(width: 62.0, height: 62.0)
+                    Button(action: { self.pickingSource = true }) {
+                        Text("Edit")
+                            .bold()
+                            .foregroundColor(.white)
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
                 VStack(alignment: .leading) {
                     TextField("Name", text: $name)
                     Divider()
                     EditProfileView.ErrorMessage(text: "Your name cannot be empty", isVisible: name.isEmpty)
                 }
                 .padding(.leading, 16.0)
+            }
+            .actionSheet(isPresented: $pickingSource) {
+                ActionSheet(title: Text("Select a source"), message: Text(""), buttons: [
+                    .default(Text("Take photo"), action: {} ),
+                    .default(Text("Choose from Library"), action: {} ),
+                    .cancel()
+                ])
             }
         }
     }

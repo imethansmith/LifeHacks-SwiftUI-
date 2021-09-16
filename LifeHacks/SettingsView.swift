@@ -9,24 +9,38 @@ import SwiftUI
 
 //MARK: - SettingsView
 struct SettingsView: View {
-    @State var selectedTheme: Theme = .default
+    @EnvironmentObject private var stateController: StateController
     
     var body: some View {
-        Form {
-            Section(header: Text("App Theme")) {
-                ForEach(Theme.allThemes) { theme in
-                    Row(name: theme.name, selected: theme.id == selectedTheme.id) {
-                        selectedTheme = theme
+        Content(selectedTheme: $stateController.theme)
+    }
+}
+
+//MARK: - Content
+fileprivate typealias Content = SettingsView.Content
+
+extension SettingsView {
+    struct Content: View {
+        @Binding var selectedTheme: Theme
+        var body: some View {
+            Form {
+                Section(header: Text("App Theme")) {
+                    ForEach(Theme.allThemes) { theme in
+                        Row(name: theme.name, selected: theme.id == selectedTheme.id) {
+                            selectedTheme = theme
+                        }
+                        .environment(\.theme, theme)
                     }
-                    .environment(\.theme, theme)
                 }
             }
+            .navigationTitle("Settings")
         }
-        .navigationTitle("Settings")
     }
 }
 
 //MARK: - Row
+fileprivate typealias Row = SettingsView.Row
+
 extension SettingsView {
     struct Row: View {
         let name: String
@@ -55,7 +69,7 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                SettingsView()
+                Content(selectedTheme: .constant(.default))
             }
             VStack {
                 Row(name: "Name", selected: false, action: {})
