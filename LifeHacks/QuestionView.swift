@@ -9,33 +9,58 @@ import SwiftUI
 
 //MARK: - QuestionView
 struct QuestionView: View {
-    @State var question: Question
+    let question: Question
+    
+    @EnvironmentObject private var stateController: StateController
     
     var body: some View {
-        ScrollViewReader { scrolling in
-            ScrollView {
-                LazyVStack {
-                    QuestionDetails(question: $question,
-                                    jumpToAnswer: { jumpToAnswer(with: scrolling) })
-                        .padding(.horizontal, 20.0)
-                    PaddedDivider()
-                    Comments(comments: question.comments)
-                    PaddedDivider()
-                    ForEach(question.answers.indices) { index in
-                        AnswerDetails(answer: $question.answers[index])
-                            .padding(.horizontal, 20.0)
-                            .padding(.vertical, 24.0)
-                            .id(question.answers[index].id)
-                        PaddedDivider()
-                    }
-                }
-            }
-        }
-        
+        Content(question: $stateController.topQuestions[index(for: question)])
+            .environment(\.navigationMap, NavigationMap(destinationForUser: destination(for:)))
     }
 }
 
 private extension QuestionView {
+    func index(for question: Question) -> Int {
+        stateController.topQuestions.firstIndex(where: { $0.id == question.id }) ?? 0
+    }
+    
+    func destination(for user: User) -> ProfileView {
+        ProfileView(user: user, isMainUser: user.id == stateController.mainUser.id)
+    }
+}
+
+//MARK: - Content
+fileprivate typealias Content = QuestionView.Content
+
+private extension QuestionView {
+    struct Content: View {
+        @Binding var question: Question
+        
+        var body: some View {
+            ScrollViewReader { scrolling in
+                ScrollView {
+                    LazyVStack {
+                        QuestionDetails(question: $question,
+                                        jumpToAnswer: { jumpToAnswer(with: scrolling) })
+                            .padding(.horizontal, 20.0)
+                        PaddedDivider()
+                        Comments(comments: question.comments)
+                        PaddedDivider()
+                        ForEach(question.answers.indices) { index in
+                            AnswerDetails(answer: $question.answers[index])
+                                .padding(.horizontal, 20.0)
+                                .padding(.vertical, 24.0)
+                                .id(question.answers[index].id)
+                            PaddedDivider()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+private extension QuestionView.Content {
     func jumpToAnswer(with scrolling: ScrollViewProxy) {
         guard let acceptedAnswer = question.answers.first(where: { $0.isAccepted }) else { return }
         withAnimation {
@@ -85,6 +110,8 @@ extension QuestionView.Owner {
 }
 
 //MARK: - Comments
+fileprivate typealias Comments = QuestionView.Comments
+
 extension QuestionView {
     struct Comments: View {
         let comments: [LifeHacks.Comment]
@@ -106,16 +133,18 @@ extension QuestionView {
 }
 
 //MARK: - Comment
-extension QuestionView.Comments {
+extension Comments {
     struct Comment: View {
         let comment: LifeHacks.Comment
+        
+        @Environment(\.navigationMap) private var navigationMap
         
         var body: some View {
             VStack(alignment: .leading, spacing: 8.0) {
                 Text(comment.body)
                     .lineLimit(5)
                 Button(action: {}) {
-                    NavigationLink(destination: ProfileView(user: comment.owner)) {
+                    NavigationLink(destination: navigationMap.destinationForUser?(comment.owner)) {
                         Text(comment.owner.name)
                             .foregroundColor(.accentColor)
                     }

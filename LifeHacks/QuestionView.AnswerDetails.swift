@@ -14,6 +14,8 @@ extension QuestionView {
     struct AnswerDetails: View {
         @Binding var answer: Answer
         
+        @Environment(\.navigationMap) private var navigationMap
+        
         var body: some View {
             HStack(alignment: .top, spacing: 16.0) {
                 VStack(spacing: 16.0) {
@@ -36,7 +38,7 @@ extension QuestionView {
                         .foregroundColor(.secondary)
                     HStack {
                         Spacer()
-                        NavigationLink(destination: ProfileView(user: answer.owner)) {
+                        NavigationLink(destination: navigationMap.destinationForUser?(answer.owner)) {
                             QuestionView.Owner(user: answer.owner)
                                 .style(.secondary)
                         }

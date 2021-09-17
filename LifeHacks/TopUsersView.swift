@@ -9,27 +9,43 @@ import SwiftUI
 
 //MARK: - TopUsersView
 struct TopUsersView: View {
-    let users: [User]
+    @EnvironmentObject private var stateController: StateController
     
-    @ScaledMetric private var columnWidth: CGFloat = 200.0
-        
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, spacing: 24.0) {
-                ForEach(users) { user in
-                    NavigationLink(destination: ProfileView(user: user)) {
-                        Cell(user: user)
-                    }
-                }
-            }
-            .padding(.top, 24.0)
-            .buttonStyle(PlainButtonStyle())
-        }
-        .navigationTitle("Users")
+        Content(users: stateController.users)
+            .environment(\.navigationMap, NavigationMap(destinationForUser: { ProfileView(user: $0) }))
     }
 }
 
-private extension TopUsersView {
+//MARK: - Content
+fileprivate typealias Content = TopUsersView.Content
+
+extension TopUsersView {
+    struct Content: View {
+        let users: [User]
+        
+        @ScaledMetric private var columnWidth: CGFloat = 200.0
+        @Environment(\.navigationMap) private var navigationMap
+        
+        var body: some View {
+            ScrollView {
+                LazyVGrid(columns: columns, spacing: 24.0) {
+                    ForEach(users) { user in
+                        NavigationLink(destination: navigationMap.destinationForUser?(user)) {
+                            Cell(user: user)
+                        }
+                    }
+                }
+                .padding(.top, 24.0)
+                .buttonStyle(PlainButtonStyle())
+            }
+            .navigationTitle("Users")
+        }
+    }
+}
+
+
+private extension Content {
     var columns: [GridItem] {
         [GridItem(.adaptive(minimum: columnWidth))]
     }
@@ -76,7 +92,7 @@ struct TopUsersView_Previews: PreviewProvider {
     
     static var previews: some View {
         NavigationView {
-            TopUsersView(users: users)
+            TopUsersView()
         }
         .fullScreenPreviews()
     }

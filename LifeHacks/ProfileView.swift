@@ -48,6 +48,7 @@ private extension ProfileView {
 
 //MARK: - Header
 fileprivate typealias Header = ProfileView.Header
+
 extension ProfileView {
     struct Header: View {
         let avatar: UIImage

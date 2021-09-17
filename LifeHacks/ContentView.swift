@@ -40,7 +40,7 @@ struct ContentView: View {
             
         }
         .accentColor(stateController.theme.accentColor)
-        .envrionment(.theme, stateController.theme)
+        .environment(\.theme, stateController.theme)
     }
 }
 

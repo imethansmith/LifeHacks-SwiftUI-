@@ -15,6 +15,8 @@ extension QuestionView {
         @Binding var question: Question
         let jumpToAnswer: () -> Void
         
+        @Environment(\.navigationMap) private var navigationMap
+        
         var body: some View {
             VStack(alignment: .leading, spacing: 24.0) {
                 AdaptiveView(standard: HStack(alignment: .top, spacing: 16.0) { topContent },
@@ -27,7 +29,7 @@ extension QuestionView {
                     .font(.subheadline)
                 HStack {
                     AdaptiveView(standard: Spacer(), large: EmptyView())
-                    NavigationLink(destination: ProfileView(user: question.owner, isMainUser: true)) {
+                    NavigationLink(destination: navigationMap.destinationForUser?(question.owner)) {
                         QuestionView.Owner(user: question.owner)
                             .style(.primary)
                     }

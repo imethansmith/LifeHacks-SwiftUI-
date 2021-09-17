@@ -9,27 +9,45 @@ import SwiftUI
 
 //MARK: - TopTagsView
 struct TopTagsView: View {
-    let tags: [Tag]
+    @EnvironmentObject private var stateController: StateController
     
     var body: some View {
-        List {
-            ForEach(tags) { tag in
-                DisclosureGroup {
-                    ForEach(tag.questions) { question in
-                        NavigationLink(destination: QuestionView(question: question)) {
-                            QuestionRow(question: question)
+        Content(tags: stateController.tags)
+            .environment(\.navigationMap, NavigationMap(destinationForQuestion: { QuestionView(question: $0) }))
+    }
+}
+
+//MARK: - Content
+fileprivate typealias Content = TopTagsView.Content
+
+extension TopTagsView {
+    struct Content: View {
+        let tags: [Tag]
+
+        @Environment(\.navigationMap) private var navigationMap
+        
+        var body: some View {
+            List {
+                ForEach(tags) { tag in
+                    DisclosureGroup {
+                        ForEach(tag.questions) { question in
+                            NavigationLink(destination: navigationMap.destinationForQuestion?(question)) {
+                                QuestionRow(question: question)
+                            }
                         }
+                    } label: {
+                        Header(title: tag.name, count: tag.count, excerpt: tag.excerpt)
                     }
-                } label: {
-                    Header(title: tag.name, count: tag.count, excerpt: tag.excerpt)
                 }
             }
+            .navigationTitle("Tags")
         }
-        .navigationTitle("Tags")
     }
 }
 
 //MARK: - Header
+fileprivate typealias Header = TopTagsView.Header
+
 extension TopTagsView {
     struct Header: View {
         let title: String
@@ -58,7 +76,7 @@ extension TopTagsView {
 struct TopTagsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            TopTagsView(tags: TestData.topTags)
+            TopTagsView()
         }
     }
 }
