@@ -86,7 +86,7 @@ extension EditProfileView {
                 Text("About me:")
                     .font(.callout)
                     .bold()
-                TextEditor(text: $text)
+                MultilineTextField(text: $text)
                     .frame(height: 200.0)
                 EditProfileView.ErrorMessage(text: "Your About section cannot be empty", isVisible: text.isEmpty)
             }

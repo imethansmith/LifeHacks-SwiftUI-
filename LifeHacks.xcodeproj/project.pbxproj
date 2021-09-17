@@ -10,6 +10,7 @@
 		3E0166332689CA5500545383 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0166322689CA5500545383 /* ProfileView.swift */; };
 		3E0DD2AC26F343F6000E4B89 /* StateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DD2AB26F343F6000E4B89 /* StateController.swift */; };
 		3E0DD2AE26F34AF2000E4B89 /* NavigationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DD2AD26F34AF2000E4B89 /* NavigationMap.swift */; };
+		3E0DD2B026F49F9A000E4B89 /* MultilineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DD2AF26F49F9A000E4B89 /* MultilineTextField.swift */; };
 		3E398DEC263D61480067DF74 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DEB263D61480067DF74 /* Styles.swift */; };
 		3E398DEE2641E5600067DF74 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DED2641E5600067DF74 /* EditProfileView.swift */; };
 		3E398DF0264520DD0067DF74 /* TopQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E398DEF264520DC0067DF74 /* TopQuestionsView.swift */; };
@@ -57,6 +58,7 @@
 		3E0166322689CA5500545383 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3E0DD2AB26F343F6000E4B89 /* StateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateController.swift; sourceTree = "<group>"; };
 		3E0DD2AD26F34AF2000E4B89 /* NavigationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationMap.swift; sourceTree = "<group>"; };
+		3E0DD2AF26F49F9A000E4B89 /* MultilineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultilineTextField.swift; sourceTree = "<group>"; };
 		3E398DEB263D61480067DF74 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		3E398DED2641E5600067DF74 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		3E398DEF264520DC0067DF74 /* TopQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopQuestionsView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				3E0DD2AD26F34AF2000E4B89 /* NavigationMap.swift */,
 				3E398DF1264756300067DF74 /* QuestionRow.swift */,
 				3E398DED2641E5600067DF74 /* EditProfileView.swift */,
+				3E0DD2AF26F49F9A000E4B89 /* MultilineTextField.swift */,
 				3E398DF3264757C30067DF74 /* SettingsView.swift */,
 				3E0DD2AB26F343F6000E4B89 /* StateController.swift */,
 				3ED94A06263C0069000E564C /* TagsView.swift */,
@@ -337,6 +340,7 @@
 				3E0DD2AC26F343F6000E4B89 /* StateController.swift in Sources */,
 				3ED94A07263C0069000E564C /* TagsView.swift in Sources */,
 				3E5D0E3B263AAC9A001F945D /* Type Extensions.swift in Sources */,
+				3E0DD2B026F49F9A000E4B89 /* MultilineTextField.swift in Sources */,
 				3E398DF0264520DD0067DF74 /* TopQuestionsView.swift in Sources */,
 				3E39CD472639213B009EE552 /* LifehacksApp.swift in Sources */,
 				3E398DF626492F2D0067DF74 /* QuestionView.Voting.swift in Sources */,
