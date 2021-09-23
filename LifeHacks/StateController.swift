@@ -6,11 +6,18 @@
 //
 
 import Foundation
+import UIKit
 
 class StateController: ObservableObject {
-    @Published var mainUser = TestData.user
+    @Published private(set) var mainUser = TestData.user
     @Published var topQuestions = TestData.questions
     @Published var theme: Theme = .default
     @Published var tags = TestData.topTags
     @Published var users = TestData.users
+    
+    func save(name: String, aboutMe: String, avatar: UIImage) {
+        mainUser.name = name
+        mainUser.aboutMe = aboutMe
+        mainUser.avatar = avatar
+    }
 }

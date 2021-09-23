@@ -40,14 +40,14 @@ private extension QuestionView {
             ScrollViewReader { scrolling in
                 ScrollView {
                     LazyVStack {
-                        QuestionDetails(question: $question,
+                        QuestionView.QuestionDetails(question: $question,
                                         jumpToAnswer: { jumpToAnswer(with: scrolling) })
                             .padding(.horizontal, 20.0)
                         PaddedDivider()
                         Comments(comments: question.comments)
                         PaddedDivider()
                         ForEach(question.answers.indices) { index in
-                            AnswerDetails(answer: $question.answers[index])
+                            QuestionView.AnswerDetails(answer: $question.answers[index])
                                 .padding(.horizontal, 20.0)
                                 .padding(.vertical, 24.0)
                                 .id(question.answers[index].id)
@@ -69,6 +69,9 @@ private extension QuestionView.Content {
     }
 }
 
+//MARK: - PaddedDivider
+fileprivate typealias PaddedDivider = QuestionView.PaddedDivider
+
 extension QuestionView {
     struct PaddedDivider: View {
         var body: some View {
@@ -79,6 +82,8 @@ extension QuestionView {
 }
 
 //MARK: - Owner
+fileprivate typealias Owner = QuestionView.Owner
+
 extension QuestionView {
     struct Owner: View {
         let name: String

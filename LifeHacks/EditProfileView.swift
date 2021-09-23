@@ -6,28 +6,39 @@
 //
 
 import SwiftUI
+import UIKit
 
-//MARK: - EditProfileView
 struct EditProfileView: View {
-    @State var user: User
-    
+    @EnvironmentObject private var stateController: StateController
     @Environment(\.presentationMode) private var presentationMode
     
+    @State private var name: String = ""
+    @State private var aboutMe: String = ""
+    @State private var avatar: UIImage = .init()
+    
+    @State private var pickingSource: Bool = false
+    @State private var pickingImage: Bool = false
+    @State private var source: UIImagePickerController.SourceType = .photoLibrary
+    
     var body: some View {
-        VStack {
-            Header(name: $user.name, avatar: user.avatar)
-            AboutMe(text: $user.aboutMe)
-            Spacer()
+        Content(name: $name, aboutMe: $aboutMe, avatar: avatar, save: save, cancel: dismiss) {
+            pickingSource = true
         }
-        .padding(20.0)
-        .navigationTitle("Edit Profile")
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel", action: dismiss)
-            }
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save", action: dismiss)
-            }
+        .onAppear {
+            let user = stateController.mainUser
+            name = user.name
+            aboutMe = user.aboutMe
+            avatar = user.avatar
+        }
+        .actionSheet(isPresented: $pickingSource) {
+            ActionSheet(title: Text("Select a source"), message: Text(""), buttons: [
+                .default(Text("Take a photo"), action: { }),
+                .default(Text("Choose a library"), action: { }),
+                .cancel()
+            ])
+        }
+        .sheet(isPresented: $pickingImage) {
+            ImagePicker(source: source, image: $avatar)
         }
     }
 }
@@ -36,13 +47,65 @@ private extension EditProfileView {
     func dismiss() {
         presentationMode.wrappedValue.dismiss()
     }
+    
+    func save() {
+        stateController.save(name: name, aboutMe: aboutMe, avatar: avatar)
+        dismiss()
+    }
+    
+    func takePhoto() {
+        // This crashes the iOS Simulator
+        source = .camera
+        pickingImage = true
+    }
+    
+    func pickPhoto() {
+        source = .photoLibrary
+        pickingImage = true
+    }
 }
 
-//MARK: - Header
+
+//MARK: - Content
+fileprivate typealias Content = EditProfileView.Content
+
 extension EditProfileView {
+    struct Content: View {
+        @Binding var name: String
+        @Binding var aboutMe: String
+        let avatar: UIImage
+        
+        let save: () -> Void
+        let cancel: () -> Void
+        let edit: () -> Void
+        
+        var body: some View {
+            VStack {
+                Header(name: $name, avatar: avatar, edit: edit)
+                AboutMe(text: $aboutMe)
+                Spacer()
+            }
+            .padding(20.0)
+            .navigationTitle("Edit Profile")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel", action: cancel)
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save", action: save)
+                }
+            }
+        }
+    }
+}
+
+
+//MARK: - Header
+extension Content {
     struct Header: View {
         @Binding var name: String
         var avatar: UIImage
+        let edit: () -> Void
         
         @State private var pickingSource: Bool = false
         
@@ -51,7 +114,7 @@ extension EditProfileView {
                 ZStack {
                     RoundImage(image: avatar, borderColor: Color.accentColor)
                         .frame(width: 62.0, height: 62.0)
-                    Button(action: { self.pickingSource = true }) {
+                    Button(action: edit) {
                         Text("Edit")
                             .bold()
                             .foregroundColor(.white)
@@ -115,7 +178,7 @@ extension EditProfileView {
 
 //MARK: - Preview
 struct EditProfileView_Previews: PreviewProvider {
-    typealias Header = EditProfileView.Header
+    typealias Header = EditProfileView.Content.Header
     typealias AboutMe = EditProfileView.AboutMe
     typealias ErrorMessage = EditProfileView.ErrorMessage
     
@@ -124,12 +187,12 @@ struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                EditProfileView(user: TestData.user)
+                EditProfileView()
             }
             .fullScreenPreviews()
             VStack(spacing: 16.0) {
-                Header(name: .constant(user.name), avatar: user.avatar)
-                Header(name: .constant(""), avatar: user.avatar)
+                Header(name: .constant(user.name), avatar: user.avatar, edit: { })
+                Header(name: .constant(""), avatar: user.avatar, edit: { })
             }
             .previewWithName(.name(for: Header.self))
             VStack(spacing: 16.0) {
