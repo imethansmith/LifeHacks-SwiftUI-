@@ -13,34 +13,52 @@ struct ProfileView: View {
     var isMainUser: Bool = false
     
     @State private var isEditing = false
+    @EnvironmentObject private var stateController: StateController
     
     var body: some View {
-        ScrollView {
-            Header (
-                avatar: user.avatar,
-                name: user.name,
-                reputation: user.reputation,
-                isMainUser: isMainUser)
-            Text(user.aboutMe)
-                .padding(.top, 16.0)
-                .padding(.horizontal, 20.0)
-        }
-        .navigationTitle("Profile")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction, content: { editButton })
-        }
+        Content(user: user, isMainUser: isMainUser, editAction: { isEditing = true })
         .fullScreenCover(isPresented: $isEditing) {
             NavigationView {
                 EditProfileView()
             }
+            .accentColor(stateController.theme.accentColor)
         }
     }
 }
 
-private extension ProfileView {
+//MARK: - Content
+fileprivate typealias Content = ProfileView.Content
+
+extension ProfileView {
+    struct Content: View {
+        let user: User
+        let isMainUser: Bool
+        let editAction: () -> Void
+        
+        var body: some View {
+            ScrollView {
+                Header (
+                    avatar: user.avatar,
+                    name: user.name,
+                    reputation: user.reputation,
+                    isMainUser: isMainUser)
+                Text(user.aboutMe)
+                    .padding(.top, 16.0)
+                    .padding(.horizontal, 20.0)
+            }
+            .navigationTitle(Text("Profile"))
+            .toolbar {
+                ToolbarItem(placement: .primaryAction, content: { editButton })
+            }
+            
+        }
+    }
+}
+
+private extension Content {
     var editButton: Button<Text>? {
         guard isMainUser else { return nil }
-        return Button(action: { isEditing = true }) {
+        return Button(action: editAction) {
             Text("Edit")
         }
     }
