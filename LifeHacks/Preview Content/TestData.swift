@@ -21,7 +21,11 @@ struct TestData {
     static let otherUser = makeUser(id: 1)
     static let users = [makeUser(id: 1), makeUser(id: 2), makeUser(id: 3), makeUser(id: 4), makeUser(id: 5)]
     static var question = makeQuestion(id: 0)
-    static let questions = [makeQuestion(id: 1), makeQuestion(id: 2), makeQuestion(id: 3)]
+    static let questions: [Question] = {
+        let url = Bundle.main.url(forResource: "Questions", withExtension: "plist")!
+        let data = try! Data(contentsOf: url)
+        return try! PropertyListDecoder().decode([Question].self, from: data)
+    }()
     static let answer = makeAnswer(id: 0, isAccepted: true)
     static let comment = makeComment(id: 0)
     

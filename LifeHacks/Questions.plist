@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>id</key>
+		<integer>9531</integer>
+		<key>viewCount</key>
+		<integer>31145</integer>
+		<key>answerCount</key>
+		<integer>13</integer>
+		<key>title</key>
+		<string>How to get rid of the ants without killing them?</string>
+		<key>body</key>
+		<string>I am not sure this question should be in Buddism exchange or this exchange. I do not want to kill the ants. Recently I saw a lot of ants coming to my table on the plain tissues with nothing on it. I am wondering how to get rid of these ants without killing them.</string>
+		<key>isAnswered</key>
+		<true/>
+		<key>creationDate</key>
+		<date>2021-09-24T19:41:03Z</date>
+		<key>tags</key>
+		<array>
+			<string>ants</string>
+			<string>buddhism</string>
+		</array>
+		<key>owner</key>
+		<dict>
+			<key>id</key>
+			<integer>1600</integer>
+			<key>reputation</key>
+			<integer>7150</integer>
+			<key>name</key>
+			<string>Louise</string>
+			<key>aboutMe</key>
+			<string>A person who is curious about things happening around, enjoy learning the new things with a novice mindset.</string>
+		</dict>
+		<key>comments</key>
+		<array>
+			<dict>
+				<key>id</key>
+				<integer>13504</integer>
+				<key>body</key>
+				<string>My hack is to:
+
+Stand each leg of the table in an empty can
+Stand each of those in a larger can
+Fill the outer can with oily water
+The inner cans are to keep the table legs dry, so they don&apos;t soak up water. The liquid forms a sort of moat so the ants can&apos;t reach the table.
+
+Now huff the ants off the table, or carry away the tissues they are on, or another harmless method.</string>
+				<key>owner</key>
+				<dict>
+					<key>id</key>
+					<integer>160</integer>
+					<key>reputation</key>
+					<integer>3379</integer>
+					<key>name</key>
+					<string>Weather Vane</string>
+					<key>aboutMe</key>
+					<string>TL;DR</string>
+				</dict>
+			</dict>
+		</array>
+		<key>answers</key>
+		<array>
+			<dict>
+				<key>id</key>
+				<integer>9533</integer>
+				<key>body</key>
+				<string>It is difficult to argue with ants. We don&apos;t speak the same language; but, we do think alike. Not only do we think alike, we are motivated by choice.
+
+The easy general answer is find something that your ant colony prefers instead of your residence. The difficult part is discovering what that is specifically.
+
+Most individuals will look to remove &apos;household pests&apos; using force (mechanical removal, entombment, poison, natural predation, and dehydration.)
+
+If you have the time and dogged determination, you can try to:
+
+Identify the species and variety of your &apos;guests.&apos;
+Identify what your &apos;guests&apos; prefer to eat to survive such as some kinds of honey or sugar (cheaper).
+Locate the source of the population and their routes from their location to yours.
+Place the supply of desirable foodstuff away from your location with a &apos;cookie-crumb&apos; trail to lead your &apos;guests&apos; to your alternate location.
+Continue to evacuate stragglers and explorers that you find wandering around as gently as possible.
+Block existing routes with material that your &apos;guests&apos; find objectionable. When you find things that your &apos;guests&apos; enjoy, there will be an opposing list of things that repel them such as black pepper.
+Good Luck.</string>
+				<key>creationDate</key>
+				<date>2021-09-24T19:52:55Z</date>
+				<key>isAccepted</key>
+				<true/>
+				<key>owner</key>
+				<dict>
+					<key>id</key>
+					<integer>1600</integer>
+					<key>reputation</key>
+					<real>7150</real>
+					<key>name</key>
+					<string>Stan</string>
+					<key>aboutMe</key>
+					<string>Apparently, this user prefers to keep an air of mystery about them.</string>
+				</dict>
+				<key>score</key>
+				<integer>1</integer>
+				<key>vote</key>
+				<integer>0</integer>
+			</dict>
+		</array>
+		<key>score</key>
+		<integer>52</integer>
+		<key>vote</key>
+		<integer>0</integer>
+	</dict>
+</array>
+</plist>

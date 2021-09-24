@@ -9,19 +9,33 @@ import Foundation
 import SwiftUI
 import UIKit
 
-//MARK: - User Model
+//MARK: - Vote Model
+enum Vote: Int, Codable {
+    case none = 0
+    case up = 1
+    case down = -1
+}
 
+//MARK: - User Model
 struct User: Identifiable {
     let id: Int
     var name: String
     var aboutMe: String
     let reputation: Int
-    var avatar: UIImage
+    var avatar: UIImage = #imageLiteral(resourceName: "Placeholder")
+}
+
+extension User: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case aboutMe
+        case reputation
+    }
 }
 
 //MARK: - Question Model
-
-struct Question: Identifiable, Votable {
+struct Question: Identifiable, Votable, Codable {
     let id: Int
     let viewCount: Int
     let title: String
@@ -37,15 +51,8 @@ struct Question: Identifiable, Votable {
     var vote = Vote.none
 }
 
-enum Vote: Int {
-    case none = 0
-    case up = 1
-    case down = -1
-}
-
 //MARK: - Answer Model
-
-struct Answer: Identifiable, Votable {
+struct Answer: Identifiable, Votable, Codable {
     let id: Int
     let body: String
     let creationDate: Date
@@ -56,15 +63,13 @@ struct Answer: Identifiable, Votable {
 }
 
 //MARK: - Comment Model
-
-struct Comment: Identifiable {
+struct Comment: Identifiable, Codable {
     let id: Int
     let body: String
     let owner: User
 }
 
 //MARK: - Tag Model
-
 struct Tag: Identifiable {
     let id: Int
     let count: Int
@@ -74,7 +79,6 @@ struct Tag: Identifiable {
 }
 
 //MARK: - Theme Model
-
 struct Theme: Identifiable {
     let name: String
     let accentColor: Color
@@ -113,7 +117,6 @@ extension EnvironmentValues {
 }
 
 //MARK: - Votable Protocol
-
 protocol Votable {
     var vote: Vote { get set }
     var score: Int { get set }

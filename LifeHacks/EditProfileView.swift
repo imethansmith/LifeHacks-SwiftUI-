@@ -33,7 +33,7 @@ struct EditProfileView: View {
         .actionSheet(isPresented: $pickingSource) {
             ActionSheet(title: Text("Select a source"), message: Text(""), buttons: [
                 .default(Text("Take a photo"), action: { }),
-                .default(Text("Choose a library"), action: { }),
+                .default(Text("Choose from library"), action: { }),
                 .cancel()
             ])
         }
