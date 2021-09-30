@@ -33,6 +33,7 @@
 		3E5D0E3B263AAC9A001F945D /* Type Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5D0E3A263AAC9A001F945D /* Type Extensions.swift */; };
 		3EB1142F26FD0C9800B8B870 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB1142E26FD0C9800B8B870 /* ImagePicker.swift */; };
 		3ED79E8F26FE5FA600ED0FDF /* Questions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3ED79E8E26FE5FA600ED0FDF /* Questions.plist */; };
+		3ED79E912704452000ED0FDF /* StorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED79E902704452000ED0FDF /* StorageController.swift */; };
 		3ED94A07263C0069000E564C /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED94A06263C0069000E564C /* TagsView.swift */; };
 		3ED94A09263D5B3B000E564C /* RoundImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED94A08263D5B3B000E564C /* RoundImage.swift */; };
 		3EDE6471267DE5780041D856 /* AdaptiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EDE6470267DE5780041D856 /* AdaptiveView.swift */; };
@@ -89,6 +90,7 @@
 		3E5D0E3A263AAC9A001F945D /* Type Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Type Extensions.swift"; sourceTree = "<group>"; };
 		3EB1142E26FD0C9800B8B870 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		3ED79E8E26FE5FA600ED0FDF /* Questions.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Questions.plist; sourceTree = "<group>"; };
+		3ED79E902704452000ED0FDF /* StorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageController.swift; sourceTree = "<group>"; };
 		3ED94A06263C0069000E564C /* TagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
 		3ED94A08263D5B3B000E564C /* RoundImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundImage.swift; sourceTree = "<group>"; };
 		3EDE6470267DE5780041D856 /* AdaptiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveView.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				3EDE6472268081AF0041D856 /* Motif.swift */,
 				3E39CD462639213B009EE552 /* LifehacksApp.swift */,
 				3E39CD76263921D0009EE552 /* Model.swift */,
+				3ED79E902704452000ED0FDF /* StorageController.swift */,
 				3E39CD4A2639213B009EE552 /* ContentView.swift */,
 				3E5D0E38263AA0F9001F945D /* QuestionView.swift */,
 				3E398DFB2649357A0067DF74 /* QuestionView.AnswerDetails.swift */,
@@ -335,6 +338,7 @@
 				3E398DF2264756300067DF74 /* QuestionRow.swift in Sources */,
 				3E398DEE2641E5600067DF74 /* EditProfileView.swift in Sources */,
 				3EB1142F26FD0C9800B8B870 /* ImagePicker.swift in Sources */,
+				3ED79E912704452000ED0FDF /* StorageController.swift in Sources */,
 				3EDE6473268081AF0041D856 /* Motif.swift in Sources */,
 				3E0DD2AE26F34AF2000E4B89 /* NavigationMap.swift in Sources */,
 				3E398DEC263D61480067DF74 /* Styles.swift in Sources */,
