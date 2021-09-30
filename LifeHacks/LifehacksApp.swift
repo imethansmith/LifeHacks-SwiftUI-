@@ -18,3 +18,10 @@ struct LifehacksApp: App {
         }
     }
 }
+
+extension LifehacksApp {
+    struct Keys {
+        static let themeName = "ThemeName"
+        static let isLoggedIn = "IsLoggedIn"
+    }
+}

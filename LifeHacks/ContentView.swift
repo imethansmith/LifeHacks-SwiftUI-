@@ -10,6 +10,7 @@ import SwiftUI
 //MARK: - ContentView
 struct ContentView: View {
     @EnvironmentObject private var stateController: StateController
+    @AppStorage(LifehacksApp.Keys.isLoggedIn) private var isLoggedIn = false
     
     var body: some View {
         TabView {
@@ -41,6 +42,11 @@ struct ContentView: View {
         }
         .accentColor(stateController.theme.accentColor)
         .environment(\.theme, stateController.theme)
+        .onAppear { isLoggedIn = !isLoggedIn}
+        .fullScreenCover(isPresented: $isLoggedIn) {
+            LoginView()
+                .accentColor(stateController.theme.accentColor)
+        }
     }
 }
 
