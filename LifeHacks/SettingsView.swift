@@ -9,10 +9,10 @@ import SwiftUI
 
 //MARK: - SettingsView
 struct SettingsView: View {
-    @EnvironmentObject private var stateController: StateController
+    @EnvironmentObject private var settingsController: SettingsController
     
     var body: some View {
-        Content(selectedTheme: $stateController.theme)
+        Content(selectedTheme: $settingsController.theme)
     }
 }
 

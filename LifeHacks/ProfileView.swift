@@ -13,7 +13,7 @@ struct ProfileView: View {
     var isMainUser: Bool = false
     
     @State private var isEditing = false
-    @EnvironmentObject private var stateController: StateController
+    @EnvironmentObject private var settingsController: SettingsController
     
     var body: some View {
         Content(user: user, isMainUser: isMainUser, editAction: { isEditing = true })
@@ -21,7 +21,7 @@ struct ProfileView: View {
             NavigationView {
                 EditProfileView()
             }
-            .accentColor(stateController.theme.accentColor)
+            .accentColor(settingsController.theme.accentColor)
         }
     }
 }

@@ -103,6 +103,10 @@ struct Theme: Identifiable {
         secondaryGradient: .green)
     
     static let allThemes: [Theme] = [.default, .web]
+    
+    static func named(_ name: String) -> Theme? {
+        allThemes.first(where: { $0.name == name })
+    }
 }
 
 struct ThemeKey: EnvironmentKey {

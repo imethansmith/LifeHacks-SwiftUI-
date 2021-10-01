@@ -11,6 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var isLoggingIn = false
     @EnvironmentObject private var stateController: StateController
+    @EnvironmentObject private var settingsController: SettingsController
     @AppStorage(LifehacksApp.Keys.isLoggedIn) private var isLoggedIn = false
     @SceneStorage("ContentView.SelectedTab") private var selectedTab = 0
     
@@ -42,8 +43,8 @@ struct ContentView: View {
             .tabItem { Label("Settings", systemImage: "gear") }
             .tag(4)
         }
-        .accentColor(stateController.theme.accentColor)
-        .environment(\.theme, stateController.theme)
+        .accentColor(settingsController.theme.accentColor)
+        .environment(\.theme, settingsController.theme)
         .onAppear { isLoggingIn = !isLoggedIn}
         .fullScreenCover(isPresented: $isLoggingIn) {
             LoginView()
