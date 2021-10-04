@@ -48,7 +48,7 @@ struct ContentView: View {
         .onAppear { isLoggingIn = !isLoggedIn}
         .fullScreenCover(isPresented: $isLoggingIn) {
             LoginView()
-                .accentColor(stateController.theme.accentColor)
+                .accentColor(settingsController.theme.accentColor)
         }
     }
 }

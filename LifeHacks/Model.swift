@@ -23,19 +23,21 @@ struct User: Identifiable {
     var aboutMe: String
     let reputation: Int
     var avatar: UIImage = #imageLiteral(resourceName: "Placeholder")
+    let profileImageURL: URL?
 }
 
 extension User: Codable {
     enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case aboutMe
+        case id = "user_id"
+        case name = "display_name"
+        case aboutMe = "about_me"
+        case profileImageURL = "profile_image"
         case reputation
     }
 }
 
 //MARK: - Question Model
-struct Question: Identifiable, Votable, Codable {
+struct Question: Identifiable, Votable {
     let id: Int
     let viewCount: Int
     let title: String
@@ -51,8 +53,26 @@ struct Question: Identifiable, Votable, Codable {
     var vote = Vote.none
 }
 
+extension Question: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id = "question_id"
+        case viewCount = "view_count"
+        case answerCount = "answer_count"
+        case isAnswered = "is_answered"
+        case creationDate = "creation_date"
+        case title
+        case body
+        case score
+        case owner
+        case tags
+        case comments
+        case answers
+        case vote
+    }
+}
+
 //MARK: - Answer Model
-struct Answer: Identifiable, Votable, Codable {
+struct Answer: Identifiable, Votable {
     let id: Int
     let body: String
     let creationDate: Date
@@ -62,11 +82,31 @@ struct Answer: Identifiable, Votable, Codable {
     var vote = Vote.none
 }
 
+extension Answer: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id = "answer_id"
+        case creationDate = "creation_date"
+        case isAccepted = "is_accepted"
+        case body
+        case score
+        case owner
+        case vote
+    }
+}
+
 //MARK: - Comment Model
-struct Comment: Identifiable, Codable {
+struct Comment: Identifiable {
     let id: Int
     let body: String
     let owner: User
+}
+
+extension Comment: Codable {
+    enum CodingKeys: String, CodingKey {
+        case id = "comment_id"
+        case body
+        case owner
+    }
 }
 
 //MARK: - Tag Model
