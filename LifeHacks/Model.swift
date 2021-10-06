@@ -20,10 +20,11 @@ enum Vote: Int, Codable {
 struct User: Identifiable {
     let id: Int
     var name: String
-    var aboutMe: String
+    var aboutMe: String?
     let reputation: Int
-    var avatar: UIImage = #imageLiteral(resourceName: "Placeholder")
+    var avatar: UIImage?
     let profileImageURL: URL?
+    let userType: String
 }
 
 extension User: Codable {
@@ -32,7 +33,25 @@ extension User: Codable {
         case name = "display_name"
         case aboutMe = "about_me"
         case profileImageURL = "profile_image"
+        case userType = "user_type"
         case reputation
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        userType = try container.decode(String.self, forKey: .userType)
+        guard userType != "does_not_exist" else {
+            id = 0
+            reputation = 0
+            name = "Deleted user"
+            profileImageURL = nil
+            return
+        }
+        id = try container.decode(Int.self, forKey: .id)
+        reputation = try container.decode(Int.self, forKey: .reputation)
+        name = try container.decode(String.self, forKey: .name)
+        profileImageURL = try container.decodeIfPresent(URL.self, forKey: .profileImageURL)
+        aboutMe = try container.decodeIfPresent(String.self, forKey: .aboutMe)?.plainHtmlString
     }
 }
 
@@ -41,14 +60,14 @@ struct Question: Identifiable, Votable {
     let id: Int
     let viewCount: Int
     let title: String
-    let body: String
+    let body: String?
     let creationDate: Date
     let tags: [String]
-    let owner: User
+    let owner: User?
     let answerCount: Int
     let isAnswered: Bool
-    let comments: [Comment]
-    var answers: [Answer]
+    let comments: [Comment]?
+    var answers: [Answer]?
     var score: Int
     var vote = Vote.none
 }
@@ -69,15 +88,32 @@ extension Question: Codable {
         case answers
         case vote
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        score = try container.decode(Int.self, forKey: .score)
+        viewCount = try container.decode(Int.self, forKey: .viewCount)
+        answerCount = try container.decode(Int.self, forKey: .answerCount)
+        title = try container.decode(String.self, forKey: .title).plainHtmlString
+        isAnswered = try container.decode(Bool.self, forKey: .isAnswered)
+        creationDate = try container.decode(Date.self, forKey: .creationDate)
+        tags = try container.decode([String].self, forKey: .tags)
+        body = try container.decodeIfPresent(String.self, forKey: .body)?.plainHtmlString
+        owner = try container.decodeIfPresent(User.self, forKey: .owner)
+        comments = try container.decodeIfPresent([Comment].self, forKey: .comments)
+        answers = try container.decodeIfPresent([Answer].self, forKey: .answers)
+        vote = try container.decodeIfPresent(Vote.self, forKey: .vote) ?? .none
+    }
 }
 
 //MARK: - Answer Model
 struct Answer: Identifiable, Votable {
     let id: Int
-    let body: String
+    let body: String?
     let creationDate: Date
     let isAccepted: Bool
-    let owner: User
+    let owner: User?
     var score: Int
     var vote = Vote.none
 }
@@ -92,13 +128,24 @@ extension Answer: Codable {
         case owner
         case vote
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        score = try container.decode(Int.self, forKey: .score)
+        isAccepted = try container.decode(Bool.self, forKey: .isAccepted)
+        creationDate = try container.decode(Date.self, forKey: .creationDate)
+        body = try container.decodeIfPresent(String.self, forKey: .body)?.plainHtmlString
+        owner = try container.decodeIfPresent(User.self, forKey: .owner)
+        vote = try container.decodeIfPresent(Vote.self, forKey: .vote) ?? .none
+    }
 }
 
 //MARK: - Comment Model
 struct Comment: Identifiable {
     let id: Int
-    let body: String
-    let owner: User
+    let body: String?
+    let owner: User?
 }
 
 extension Comment: Codable {
@@ -107,15 +154,33 @@ extension Comment: Codable {
         case body
         case owner
     }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        body = try container.decodeIfPresent(String.self, forKey: .body)?.plainHtmlString
+        owner = try container.decodeIfPresent(User.self, forKey: .owner)
+    }
 }
 
 //MARK: - Tag Model
-struct Tag: Identifiable {
-    let id: Int
+struct Tag: Identifiable, Codable {
     let count: Int
     let name: String
-    let excerpt: String
-    let questions: [Question]
+    let excerpt: String?
+    let questions: [Question]?
+    
+    var id: String { name }
+}
+
+extension Tag {
+    struct Excerpt: Codable {
+        let text: String
+        
+        enum CodingKeys: String, CodingKey {
+            case text = "excerpt"
+        }
+    }
 }
 
 //MARK: - Theme Model
@@ -188,4 +253,8 @@ private extension Votable {
         score += vote.rawValue
         self.vote = vote
     }
+}
+
+struct Wrapper: Decodable {
+    let items: [Question]
 }

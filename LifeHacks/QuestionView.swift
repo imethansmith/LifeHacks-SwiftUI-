@@ -41,17 +41,25 @@ private extension QuestionView {
                 ScrollView {
                     LazyVStack {
                         QuestionView.QuestionDetails(question: $question,
-                                        jumpToAnswer: { jumpToAnswer(with: scrolling) })
+                                                     jumpToAnswer: { jumpToAnswer(with: scrolling) })
                             .padding(.horizontal, 20.0)
-                        PaddedDivider()
-                        Comments(comments: question.comments)
-                        PaddedDivider()
-                        ForEach(question.answers.indices) { index in
-                            QuestionView.AnswerDetails(answer: $question.answers[index])
-                                .padding(.horizontal, 20.0)
-                                .padding(.vertical, 24.0)
-                                .id(question.answers[index].id)
+                        if let comments = question.comments {
                             PaddedDivider()
+                            Comments(comments: comments)
+                        }
+                        if let answers = question.answers {
+                            PaddedDivider()
+                            ForEach(question.answers!.indices) { index in
+                                AnswerDetails(answer: Binding {
+                                    answers[index]
+                                } set: {
+                                    question.answers?[index] = $0
+                                })
+                                    .padding(.horizontal, 20.0)
+                                    .padding(.vertical, 24.0)
+                                    .id(question.answers![index].id)
+                                PaddedDivider()
+                            }
                         }
                     }
                 }
@@ -62,7 +70,7 @@ private extension QuestionView {
 
 private extension QuestionView.Content {
     func jumpToAnswer(with scrolling: ScrollViewProxy) {
-        guard let acceptedAnswer = question.answers.first(where: { $0.isAccepted }) else { return }
+        guard let acceptedAnswer = question.answers!.first(where: { $0.isAccepted }) else { return }
         withAnimation {
             scrolling.scrollTo(acceptedAnswer.id, anchor: .top)
         }
@@ -110,7 +118,7 @@ extension QuestionView.Owner {
     init(user: User) {
         name = user.name
         reputation = user.reputation
-        avatar = user.avatar
+        avatar = user.avatar ?? UIImage()
     }
 }
 
@@ -146,11 +154,11 @@ extension Comments {
         
         var body: some View {
             VStack(alignment: .leading, spacing: 8.0) {
-                Text(comment.body)
+                Text(comment.body ?? "")
                     .lineLimit(5)
-                Button(action: {}) {
-                    NavigationLink(destination: navigationMap.destinationForUser?(comment.owner)) {
-                        Text(comment.owner.name)
+                if let owner = comment.owner {
+                    NavigationLink(destination: navigationMap.destinationForUser?(owner)) {
+                        Text(owner.name)
                             .foregroundColor(.accentColor)
                     }
                 }
@@ -182,7 +190,7 @@ struct QuestionView_Previews: PreviewProvider {
             Owner(user: user)
                 .style(.primary)
                 .previewWithName(.name(for: Owner.self))
-            Comments(comments: question.comments)
+            Comments(comments: question.comments!)
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName(.name(for: Comments.self))
             Comment(comment: comment)

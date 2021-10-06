@@ -27,8 +27,8 @@ struct EditProfileView: View {
         .onAppear {
             let user = stateController.mainUser
             name = user.name
-            aboutMe = user.aboutMe
-            avatar = user.avatar
+            aboutMe = user.aboutMe ?? ""
+            avatar = user.avatar ?? UIImage()
         }
         .actionSheet(isPresented: $pickingSource) {
             ActionSheet(title: Text("Select a source"), message: Text(""), buttons: [
@@ -187,16 +187,17 @@ struct EditProfileView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             NavigationView {
-                EditProfileView()
+                Content(
+                    name: .constant(user.name), aboutMe: .constant(user.aboutMe!), avatar: user.avatar!, save: {}, cancel: {}, edit: {})
             }
             .fullScreenPreviews()
             VStack(spacing: 16.0) {
-                Header(name: .constant(user.name), avatar: user.avatar, edit: { })
-                Header(name: .constant(""), avatar: user.avatar, edit: { })
+                Header(name: .constant(user.name), avatar: user.avatar!, edit: {})
+                Header(name: .constant(""), avatar: user.avatar!, edit: {})
             }
             .previewWithName(.name(for: Header.self))
             VStack(spacing: 16.0) {
-                AboutMe(text: .constant(user.aboutMe))
+                AboutMe(text: .constant(user.aboutMe!))
                 AboutMe(text: .constant(""))
             }
             .previewWithName(.name(for: AboutMe.self))

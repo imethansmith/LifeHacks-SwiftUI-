@@ -25,13 +25,15 @@ extension QuestionView {
                     Button("Go to accepted answer", action: jumpToAnswer)
                         .font(Font.footnote.bold())
                 }
-                Text(question.body)
+                Text(question.body ?? "")
                     .font(.subheadline)
-                HStack {
-                    AdaptiveView(standard: Spacer(), large: EmptyView())
-                    NavigationLink(destination: navigationMap.destinationForUser?(question.owner)) {
-                        QuestionView.Owner(user: question.owner)
-                            .style(.primary)
+                if let owner = question.owner {
+                    HStack {
+                        AdaptiveView(standard: Spacer(), large: EmptyView())
+                        NavigationLink(destination: navigationMap.destinationForUser?(owner)) {
+                            QuestionView.Owner(user: owner)
+                                .style(.primary)
+                        }
                     }
                 }
             }

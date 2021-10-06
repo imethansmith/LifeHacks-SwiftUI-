@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-fileprivate typealias AnswerDetails = QuestionView.AnswerDetails
-
 //MARK: - QuestionView.AnswerDetails
+typealias AnswerDetails = QuestionView.AnswerDetails
+
 extension QuestionView {
     struct AnswerDetails: View {
         @Binding var answer: Answer
@@ -31,19 +31,21 @@ extension QuestionView {
                     }
                 }
                 VStack(alignment: .leading, spacing: 8.0) {
-                    Text(answer.body)
+                    Text(answer.body ?? "")
                         .font(.subheadline)
                     Text("Answered on \(answer.creationDate.formatted)")
                         .font(.caption)
                         .foregroundColor(.secondary)
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: navigationMap.destinationForUser?(answer.owner)) {
-                            QuestionView.Owner(user: answer.owner)
-                                .style(.secondary)
+                    if let owner = answer.owner {
+                        HStack {
+                            Spacer()
+                            NavigationLink(destination: navigationMap.destinationForUser?(owner)) {
+                                QuestionView.Owner(user: owner)
+                                    .style(.secondary)
+                            }
                         }
+                        .padding(.top, 16.0)
                     }
-                    .padding(.top, 16.0)
                 }
             }
         }

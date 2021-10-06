@@ -38,11 +38,11 @@ extension ProfileView {
         var body: some View {
             ScrollView {
                 Header (
-                    avatar: user.avatar,
+                    avatar: user.avatar ?? UIImage(),
                     name: user.name,
                     reputation: user.reputation,
                     isMainUser: isMainUser)
-                Text(user.aboutMe)
+                Text(user.aboutMe ?? "")
                     .padding(.top, 16.0)
                     .padding(.horizontal, 20.0)
             }
@@ -107,8 +107,8 @@ struct ProfileView_Previews: PreviewProvider {
             }
             .fullScreenPreviews()
             VStack {
-                Header(avatar: otherUser.avatar, name: otherUser.name, reputation: otherUser.reputation)
-                Header(avatar: user.avatar, name: user.name, reputation: user.reputation, isMainUser: true)
+                Header(avatar: otherUser.avatar!, name: otherUser.name, reputation: otherUser.reputation)
+                Header(avatar: user.avatar!, name: user.name, reputation: user.reputation, isMainUser: true)
             }
             .previewWithName(.name(for: Header.self))
         }

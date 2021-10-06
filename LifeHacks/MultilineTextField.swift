@@ -45,7 +45,7 @@ extension MultilineTextField {
 
 struct TextView_Previews: PreviewProvider {
     static var previews: some View {
-        MultilineTextField(text: .constant(TestData.user.aboutMe))
+        MultilineTextField(text: .constant(TestData.user.aboutMe!))
             .namedPreview()
             .frame(height: 250.0)
     }

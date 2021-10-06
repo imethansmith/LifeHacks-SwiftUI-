@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 //MARK: - Preview Name and Formatter
-
 extension View {
     func previewWithName(_ name: String) -> some View {
         self
@@ -96,7 +95,6 @@ extension ColorScheme: Identifiable {
 }
 
 //MARK: - Get Component Name
-
 extension String {
     static func name<T>(for type: T) -> String {
         String(reflecting: type)
@@ -106,7 +104,6 @@ extension String {
 }
 
 //MARK: - Logic Formatters
-
 extension Int {
     var formatted: String {
         let formatter = NumberFormatter()
@@ -120,5 +117,18 @@ extension Date {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter.string(from: self)
+    }
+}
+
+//MARK: - htmlString - format html text into clean NSAttributedString
+extension String {
+    var htmlString: NSAttributedString? {
+        guard let htmlData = self.data(using: .unicode) else { return nil }
+        let options = [NSAttributedString.DocumentReadingOptionKey.documentType: NSAttributedString.DocumentType.html]
+        return try? NSAttributedString(data: htmlData, options: options, documentAttributes: .none)
+    }
+    
+    var plainHtmlString: String {
+        return htmlString?.string ?? ""
     }
 }

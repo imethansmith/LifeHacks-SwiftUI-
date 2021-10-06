@@ -26,7 +26,7 @@ class StorageController {
     func save(user: User) {
         guard let userData = try? PropertyListEncoder().encode(user) else { return }
         try? userData.write(to: userFileURL)
-        let avatarData = user.avatar.jpegData(compressionQuality: 1.0)
+        let avatarData = user.avatar?.jpegData(compressionQuality: 1.0)
         try? avatarData?.write(to: avatarFileURL)
     }
     

@@ -30,13 +30,15 @@ extension TopTagsView {
             List {
                 ForEach(tags) { tag in
                     DisclosureGroup {
-                        ForEach(tag.questions) { question in
-                            NavigationLink(destination: navigationMap.destinationForQuestion?(question)) {
-                                QuestionRow(question: question)
+                        if let questions = tag.questions {
+                            ForEach(questions) { question in
+                                NavigationLink(destination: navigationMap.destinationForQuestion?(question)) {
+                                    QuestionRow(question: question)
+                                }
                             }
                         }
                     } label: {
-                        Header(title: tag.name, count: tag.count, excerpt: tag.excerpt)
+                        Header(title: tag.name, count: tag.count, excerpt: tag.excerpt ?? "")
                     }
                 }
             }

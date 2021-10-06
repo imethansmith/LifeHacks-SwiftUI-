@@ -82,7 +82,7 @@ extension TopUsersView.Cell {
     init(user: User) {
         name = user.name
         reputation = user.reputation
-        avatar = user.avatar
+        avatar = user.avatar ?? UIImage()
     }
 }
 

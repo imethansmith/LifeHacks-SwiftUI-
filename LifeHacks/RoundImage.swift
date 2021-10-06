@@ -21,7 +21,7 @@ struct RoundImage: View {
 
 struct RoundImage_Previews: PreviewProvider {
     static var previews: some View {
-        RoundImage(image: TestData.user.avatar)
+        RoundImage(image: TestData.user.avatar!)
             .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, height: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
             .padding()
             .background(Color.black)
