@@ -255,6 +255,10 @@ private extension Votable {
     }
 }
 
-struct Wrapper: Decodable {
-    let items: [Question]
+struct Wrapper<ModelType: Decodable>: Decodable {
+    let items: [ModelType]
+    
+    enum CodingKeys: String, CodingKey {
+        case items
+    }
 }
