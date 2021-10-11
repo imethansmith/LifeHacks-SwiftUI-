@@ -16,13 +16,20 @@ class APIController: ObservableObject {
     func loadQuestions(withCompletion completion: @escaping ([Question]?) -> Void) {
         let parameters = ["order": "desc", "sort": "activity", "site": "lifehacks", "pagesize": "10"]
         let url = StackExchangeAPI.questionsURL.appendingParameters(parameters)
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) -> Void in
+        load(url: url) { data in
             guard let data = data else {
                 DispatchQueue.main.async { completion(nil) }
                 return
             }
             let wrapper = try? JSONDecoder().decode(Wrapper<Question>.self, from: data)
             DispatchQueue.main.async { completion(wrapper?.items) }
+        }
+    }
+}
+
+private extension APIController {
+    func load(url: URL, withCompletion completion: @escaping (Data?) -> Void) {
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) -> Void in completion(data)
         }
         task.resume()
     }
