@@ -263,6 +263,7 @@ struct Wrapper<ModelType: Decodable>: Decodable {
     }
 }
 
+//MARK: - APIResource & associated resources
 protocol APIResource {
     associatedtype ModelType: Decodable
     var path: String { get }
@@ -331,5 +332,25 @@ struct QuestionResource: APIResource {
             parameters["tagged"] = tag
         }
         return parameters
+    }
+}
+
+//MARK: - NetworkRequest & associated code
+protocol NetworkRequest: AnyObject {
+    associatedtype ModelType
+    var url: URL { get }
+    func decode(_ data: Data) -> ModelType?
+}
+
+extension NetworkRequest {
+    func execute(withCompletion completion: @escaping (ModelType?) -> Void ) {
+        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) -> Void in
+            guard let data = data, let value = self?.decode(data) else {
+                DispatchQueue.main.async { completion(nil) }
+                return
+            }
+            DispatchQueue.main.async { completion(value) }
+        }
+        task.resume()
     }
 }
